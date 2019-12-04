@@ -1,0 +1,43 @@
+---
+title: "Land Use and Water Quality"
+author:
+- "Dr. Matthew Ross"
+- 'matt.ross(at)colostate.edu'
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook: default
+  #bookdown::pdf_book: default
+bibliography: 'citations.bib'
+---
+
+
+# Introduction {-}
+
+For decades the rivers of Central Appalachia have been steadily buried [@Ross2016], 
+polluted [@Lindberg2011;@Bernhardt2011;@Bernhardt2012;@Ross2016;@Ross2018;@Griffiths2015],
+and depopulated of their 
+incredible biodiversity of macroinvertebrates [@Voss2017] and fish [@Hitt2014]. The
+driver of all these impacts is
+mountaintop mining a process to extract shallow coal seams from beneath the surface of 
+steep terrain. 
+Mountaintop mining's impacts are well-documented in the literature [@Bernhardt2011], but most 
+of these analyses linking mining to downstream impacts relied on relatively coarse
+temporal and spatial resolution maps of mining extent [@Bernhardt2012] or datasets
+that were collected *ad-hoc* for each research paper [@Lindberg2011].
+
+This problem of disaggregated and coarse mining coverage maps was fixed by 
+Pericack and others who used Google Earth Engine to delineate active mining
+extent coverages for every year from 1985-2015 [@Pericak2018]. This new dataset 
+is an excellent starting point to better understand the impacts of mountaintop
+mining on streams and rivers in Central Appalachia. However, these coverage maps  
+are not linked to how water moves through these ecosystems, so there is still no
+publiclly available dataset showing how much mining is upstream of rivers in 
+Central Appalachia. 
+
+In this brief paper and video I produce annual maps of the total percent mining 
+upstream for all of the watersheds in the Pericack dataset [@Pericack2018]. I use
+open source terrain analysis tools like `Whitebox` [@Lindsay2016], `elevatr` (https://cran.r-project.org/web/packages/elevatr/citation.html), and `raster` 
+packages all in the R programming language (cite R). The code and data are all
+available on figshare and a permanent website version of the paper is here. 

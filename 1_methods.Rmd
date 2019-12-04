@@ -1,0 +1,105 @@
+
+
+# Methods
+
+
+To see how mining coverage has impacted rivers we need two datasets. First
+we need to know when mining first occured on the landscape. Second we need
+to know how these sections of mined lands are connected to river networks and
+how mining impacts might propagate downstream. The first dataset is part of the
+Pericack et al., paper (2018) labeled `First Mining Year (GeoTIFF)` in the 
+figshare data repository. The second dataset we will create here using `whitebox` and elevation data from the region, but fist we need to download the data. 
+
+```{r setup, include=FALSE}
+library(sf) #Amazingly simple tidy GIS R package
+library(mapview) #Interactive mapping of sf objects
+library(tidyverse) #Good 'ol tidyverse (dplyr, readr, more)
+library(elevatr) #R access to mapzen (dynamic downloading of DEMs)
+library(raster) # Name says it all, rasters in R
+library(whitebox)
+library(stars) # A bridge to the future of raster (spatiotemporal objects)
+library(USAboundaries)
+library(tmap)
+knitr::opts_chunk$set(echo = TRUE)
+
+# Run once!
+#devtools::install_github("giswqs/whiteboxR")
+```
+
+
+
+```{r, include=F}
+
+#Look for cumulative mining data
+cume_file <- 'data/in/cume.tif'
+
+#Check if the file already exists, if not run the commands below. 
+cume_downloaded = !file.exists(cume_file)
+
+```
+
+
+## Data acquisition and organization
+
+### Cumulative mining from Pericack et al., 2018
+
+Here we are simply downloading the Pericack et al First Mined dataset from
+figshare using a Rmarkdown trick where we ask "does this file exist locally?"
+If it does, then this code chunk will be skipped. If it doesn't then the 
+data will be downloaded to your local directory under the folder 'data'.
+
+```{r,eval=cume_downloaded}
+
+#Create a data repo if one doesn't exist.
+dir.create('data')
+dir.create('data/in')
+dir.create('data/out')
+
+#Download data locally. Link is from paper
+download.file('https://ndownloader.figshare.com/files/11446991?private_link=e99954fc2876c6e96a7c',destfile=cume_file,method='libcurl',mode='wb')
+
+
+
+```
+
+
+
+
+### Download relevant elevation data
+
+Our watershed analyses will be based on elevation data which we will 
+get from elevatr which relies on mapzen elevation data. In the USA this 
+data comes directly from USGS data. 
+
+```{r, include=F}
+raw_dem_file <- 'data/in/elev_raw.tif'
+raw_dem_eval <- !file.exists(raw_dem_file)
+```
+
+
+```{r, eval=raw_dem_eval}
+elev_raw <- get_elev_raster(cume,z=11)
+
+
+writeRaster(elev_raw,raw_dem_file,overwrite=T)
+```
+
+
+### Reproject elevation data into same projection as cumulative mining tif. 
+
+
+```{r}
+proj_dem_file <- 'data/out/elev.tif'
+reproject <- !file.exists(proj_dem_file)
+
+
+```
+
+
+```{r, eval=reproject}
+
+elev <- projectRaster(elev_raw,cume)
+#Save this elev data for whitebox
+writeRaster(elev,proj_dem_file,overwrite=T)
+
+```
