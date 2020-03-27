@@ -20,23 +20,15 @@ library(whitebox)
 library(stars) # A bridge to the future of raster (spatiotemporal objects)
 library(USAboundaries)
 library(tmap)
-knitr::opts_chunk$set(echo = TRUE)
+library(furrr) #Parallel mapping
+library(animation)
+knitr::opts_chunk$set(echo = TRUE,eval=F, cache = T)
 
 # Run once!
 #devtools::install_github("giswqs/whiteboxR")
 ```
 
 
-
-```{r, include=F}
-
-#Look for cumulative mining data
-cume_file <- 'data/in/cume.tif'
-
-#Check if the file already exists, if not run the commands below. 
-cume_downloaded = !file.exists(cume_file)
-
-```
 
 
 ## Data acquisition and organization
@@ -46,18 +38,28 @@ cume_downloaded = !file.exists(cume_file)
 Here we are simply downloading the Pericack et al First Mined dataset from
 figshare using a Rmarkdown trick where we ask "does this file exist locally?"
 If it does, then this code chunk will be skipped. If it doesn't then the 
-data will be downloaded to your local directory under the folder 'data'.
+data will be downloaded to your local directory under the folder 'data'. We
+use these tricks throughout. 
 
-```{r,eval=cume_downloaded}
+```{r download cume}
 
-#Create a data repo if one doesn't exist.
-dir.create('data')
-dir.create('data/in')
-dir.create('data/out')
 
-#Download data locally. Link is from paper
-download.file('https://ndownloader.figshare.com/files/11446991?private_link=e99954fc2876c6e96a7c',destfile=cume_file,method='libcurl',mode='wb')
+#Look for cumulative mining data
+cume_file <- 'data/in/cume.tif'
 
+#Check if the file already exists, if not run the commands below. 
+cume_downloaded = !file.exists(cume_file)
+
+
+if(cume_downloaded){
+  #Create a data repo if one doesn't exist.
+  dir.create('data')
+  dir.create('data/in')
+  dir.create('data/out')
+  
+  #Download data locally. Link is from paper
+  download.file('https://ndownloader.figshare.com/files/11446991?private_link=e99954fc2876c6e96a7c',destfile=cume_file,method='libcurl',mode='wb')
+}
 
 
 ```
@@ -69,37 +71,224 @@ download.file('https://ndownloader.figshare.com/files/11446991?private_link=e999
 
 Our watershed analyses will be based on elevation data which we will 
 get from elevatr which relies on mapzen elevation data. In the USA this 
-data comes directly from USGS data. 
+data comes directly from USGS elevation data. 
 
-```{r, include=F}
+
+```{r elev download}
+
+
 raw_dem_file <- 'data/in/elev_raw.tif'
 raw_dem_eval <- !file.exists(raw_dem_file)
-```
 
-
-```{r, eval=raw_dem_eval}
-elev_raw <- get_elev_raster(cume,z=11)
-
-
-writeRaster(elev_raw,raw_dem_file,overwrite=T)
+if(raw_dem_eval){
+  #Download data from elevatr (mapzen)
+  elev_raw <- get_elev_raster(cume,z=11)
+  #Save raw file
+  writeRaster(elev_raw,raw_dem_file,overwrite=T)
+}
 ```
 
 
 ### Reproject elevation data into same projection as cumulative mining tif. 
 
+The elevatr comes down in a different projection than the cumulative mining 
+dataset, so we need to reproject it so that the cells match exactly in
+resolution and location
 
-```{r}
+
+```{r reproject}
 proj_dem_file <- 'data/out/elev.tif'
 reproject <- !file.exists(proj_dem_file)
 
+if(reproject){
+  elev <- projectRaster(elev_raw,cume)
+  #Save this elev data for whitebox
+  writeRaster(elev,proj_dem_file,overwrite=T)
+}
+```
+
+
+## Data preparation
+
+To prepare our data for whitebox terrain analyses, we need to process our
+cumulative mining layer so that we produce 31 rasters that have cumulative mining
+coverage up to that year. So we will make a tif called "1984.tif" and it will 
+only contain mining up to 1984, and then 1985, '86 and so on. To demonstrate
+this process we'll look at a county where there has been a lot of mining so we 
+can see how cumulative mining changes over time, Boone County, WV.
+
+
+### First Mining Year for Boone County
+
+
+```{r,fig.width=5,fig.height=5,fig.cap = 'First year of mountaintop mining in Boone County West Virginia'}
+
+elev <- raster(proj_dem_file)
+
+cume <- raster(cume_file)
+
+boone <- us_counties(states='West Virginia') %>%
+  filter(name == 'Boone') %>%
+  #Match projections to mining data
+  st_transform(st_crs(cume))
+
+
+
+#Crop to boone
+cume_boone <- crop(cume,boone)
+elev_boone <- crop(elev,boone)
+
+
+#First year of mining boone county
+tm_shape(elev_boone) + 
+  tm_raster(palette='Greys',
+            style='cont',
+            legend.show = F,
+            midpoint = 500) +  
+tm_shape(cume_boone) + 
+  tm_raster(title= '',
+            palette = 'viridis',
+            style= 'cont',
+            breaks=c(1984,1990,2000,2010,2015),
+            labels=c('pre-1985','1990','2000','2010','2015')) + 
+  tm_layout(legend.position = c(0.05,0.3),
+            legend.bg.color = 'white') 
+
+```
+
+### Cumulative mining Boone County 1990
+
+Just an example of how we are creating these rasters and what they will look 
+like. 
+
+```{r,fig.width=5,fig.height=5,fig.caption='Cumulative mining as of 1990'}
+#Set all values above a year value to NA and all values before or equal to 1990 to 1
+
+cut_year <- 1990 
+rcl <- matrix(c(cut_year,2016,NA,
+              1983,cut_year,1),nrow=2,ncol=3,byrow=T)
+
+cume_cut <- reclassify(cume_boone,rcl)
+
+
+
+tm_shape(elev_boone) + 
+  tm_raster(palette='Greys',
+            style='cont',
+            legend.show = F,
+            midpoint = 500) +  
+tm_shape(cume_cut) + 
+  tm_raster(title='',
+            style='cat',
+            breaks=c(1),
+            labels=c(paste('Mined by end of',cut_year))) + 
+  tm_layout(legend.position = c(0.05,0.4),
+            legend.bg.color = 'white') 
+
+
+```
+
+### Animated loop showing how this looks for all years
+
+
+```{r boone gif,include=F}
+boone_gif <- 'figs/boone.gif'
+gif_run = !file.exists(boone_gif)
+
+
+if(gif_run){
+  dir.create('figs')
+  cut_years = 1984:2015
+
+  saveGIF({
+    for(i in cut_years){
+      rcl <- matrix(c(i,2016,NA,
+                1983,i,1),nrow=2,ncol=3,byrow=T)
+      cume_cut <- reclassify(cume_boone,rcl)
+  
+  
+  
+      boone_map <- tm_shape(elev_boone) + 
+        tm_raster(palette='Greys',
+                  style='cont',
+                  legend.show = F,
+                  midpoint = 500) +  
+      tm_shape(cume_cut) + 
+        tm_raster(title='',
+                  style='cat',
+                  breaks=c(1),
+                  labels=c(paste('Mined by end of',i))) + 
+        tm_layout(legend.position = c(0.05,0.4),
+                  legend.bg.color = 'white') 
+      print(boone_map)
+    }
+  }, movie.name = 'boone.gif',ani.width=800,ani.height=800,
+  interval=0.2)
+  #No clue why but this code breaks if I put it into a subdirectory. So 
+  #I'll do that manually here. 
+  file.copy('boone.gif',boone_gif)
+  file.remove('boone.gif')
+}
 
 ```
 
 
-```{r, eval=reproject}
+![Cumulative mining expansion in Boone County](boone.gif)
 
-elev <- projectRaster(elev_raw,cume)
-#Save this elev data for whitebox
-writeRaster(elev,proj_dem_file,overwrite=T)
+
+### Filtering and outputting cumulative mining rasters 1984-2015
+
+```{r}
+
+dir.create('data/out/annual_cumes')
+
+#Years for cume data
+years <- 1984:2015
+
+year_files <- paste0('data/out/annual_cumes/',years,'.tif')
+
+#Rerun? 
+cumer_run <- !all(file.exists(year_files))
+
+
+# Making a function for reclassifying Matrix for every year. 
+
+mine_cumer <- function(year){
+  #Reclassify matrix
+  rcl <- matrix(c(year,2016,NA,
+              1983,year,1),nrow=2,ncol=3,byrow=T)
+  
+  #Reclassify raster
+  cume_cut <- reclassify(cume,rcl)
+  
+  #write it out
+  file = paste0('data/out/annual_cumes/',year,'.tif')
+  writeRaster(cume_cut,filename=file,overwrite=T)
+}
+
+#Future (parallel!) mapping over the years of interest
+
+#Amazingly fast (32 cores, about 20 times faster chez moi)
+if(cumer_run){
+  plan(multiprocess)
+  outs <- future_map(years,mine_cumer)
+}
 
 ```
+
+### Making an empty and a full dataset. 
+
+
+```{r}
+
+```
+
+
+
+## Using Whitebox to get Annual Cumulative Mining in river networks
+
+
+```{r}
+
+```
+
