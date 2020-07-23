@@ -22,7 +22,10 @@ library(USAboundaries)
 library(tmap)
 library(furrr) #Parallel mapping
 library(animation)
-knitr::opts_chunk$set(echo = TRUE,eval=F, cache = T)
+library(terra)
+knitr::opts_chunk$set(echo = TRUE,eval = TRUE,
+                      cache = TRUE, warning = FALSE,
+                      message = FALSE)
 
 # Run once!
 #devtools::install_github("giswqs/whiteboxR")
@@ -59,6 +62,8 @@ if(cume_downloaded){
   
   #Download data locally. Link is from paper
   download.file('https://ndownloader.figshare.com/files/11446991?private_link=e99954fc2876c6e96a7c',destfile=cume_file,method='libcurl',mode='wb')
+  
+
 }
 
 
@@ -80,9 +85,11 @@ data comes directly from USGS elevation data.
 raw_dem_file <- 'data/in/elev_raw.tif'
 raw_dem_eval <- !file.exists(raw_dem_file)
 
+
 if(raw_dem_eval){
   #Download data from elevatr (mapzen)
-  elev_raw <- get_elev_raster(cume,z=11)
+  cume_r <- raster('data/in/cume.tif')
+  elev_raw <- get_elev_raster(cume_r,z=11)
   #Save raw file
   writeRaster(elev_raw,raw_dem_file,overwrite=T)
 }
@@ -101,9 +108,12 @@ proj_dem_file <- 'data/out/elev.tif'
 reproject <- !file.exists(proj_dem_file)
 
 if(reproject){
-  elev <- projectRaster(elev_raw,cume)
+  elev_raw <- rast('data/in/elev_raw.tif')
+  cume <- rast('data/in/cume.tif')
+  #Project raster into cumulative raster cells and projection
+  elev <- project(elev_raw,cume)
   #Save this elev data for whitebox
-  writeRaster(elev,proj_dem_file,overwrite=T)
+  terra::writeRaster(elev,proj_dem_file,overwrite=T)
 }
 ```
 
@@ -121,38 +131,52 @@ can see how cumulative mining changes over time, Boone County, WV.
 ### First Mining Year for Boone County
 
 
-```{r,fig.width=5,fig.height=5,fig.cap = 'First year of mountaintop mining in Boone County West Virginia'}
+```{r first,fig.width= 5,fig.height= 7,fig.cap = 'First year of mountaintop mining in Boone County West Virginia', cache = F}
 
-elev <- raster(proj_dem_file)
+elev <- rast(proj_dem_file)
 
-cume <- raster(cume_file)
+cume <- rast(cume_file)
+
 
 boone <- us_counties(states='West Virginia') %>%
   filter(name == 'Boone') %>%
   #Match projections to mining data
-  st_transform(st_crs(cume))
-
-
+  st_transform(crs(cume))
 
 #Crop to boone
-cume_boone <- crop(cume,boone)
+cume_boone <- crop(cume,boone) 
 elev_boone <- crop(elev,boone)
 
 
+#Terra doesn't work with tmap (yet presumably)
+#So we have to use base!
+
+
+#OMG base is great again. HCL.colors is nice
+plot(cume_boone,col=hcl.colors(30,'viridis'),frame=F,axes=F,leg.shrink=.3,useRaster=T)
+plot(elev_boone,col=hcl.colors(20,'Grays'),add=T,frame=F,axes=F,leg.shrink=.2,
+     useRaster = T)
+plot(cume_boone,col=hcl.colors(30,'viridis'),add=T,leg.shrink=.3,useRaster=T)
+
+
+
 #First year of mining boone county
-tm_shape(elev_boone) + 
-  tm_raster(palette='Greys',
-            style='cont',
-            legend.show = F,
-            midpoint = 500) +  
-tm_shape(cume_boone) + 
-  tm_raster(title= '',
-            palette = 'viridis',
-            style= 'cont',
-            breaks=c(1984,1990,2000,2010,2015),
-            labels=c('pre-1985','1990','2000','2010','2015')) + 
-  tm_layout(legend.position = c(0.05,0.3),
-            legend.bg.color = 'white') 
+## Raster version of plotting
+# tm_shape(elev_boone) + 
+#   tm_raster(palette='Greys',
+#             style='cont',
+#             legend.show = F,
+#             midpoint = 500) +  
+# tm_shape(cume_boone) + 
+#   tm_raster(title= '',
+#             palette = 'viridis',
+#             style= 'cont',
+#             breaks=c(1984,1990,2000,2010,2015),
+#             labels=c('pre-1985','1990','2000','2010','2015')) + 
+#   tm_layout(legend.position = c(0.05,0.3),
+#             legend.bg.color = 'white',
+#             legend.text.size = 1.3) 
+
 
 ```
 
@@ -161,86 +185,92 @@ tm_shape(cume_boone) +
 Just an example of how we are creating these rasters and what they will look 
 like. 
 
-```{r,fig.width=5,fig.height=5,fig.caption='Cumulative mining as of 1990'}
+```{r cume,fig.width = 5,fig.height = 6,fig.caption='Cumulative mining as of 1990'}
 #Set all values above a year value to NA and all values before or equal to 1990 to 1
 
 cut_year <- 1990 
 rcl <- matrix(c(cut_year,2016,NA,
               1983,cut_year,1),nrow=2,ncol=3,byrow=T)
 
-cume_cut <- reclassify(cume_boone,rcl)
 
+cume_cut <- classify(cume_boone,rcl)
 
+plot(elev_boone,col=hcl.colors(20,'Grays'),frame=F,axes=F,leg.shrink=.2,
+     useRaster = T)
+plot(cume_cut,col='red',add=T,leg.shrink=.3,useRaster=T)
 
-tm_shape(elev_boone) + 
-  tm_raster(palette='Greys',
-            style='cont',
-            legend.show = F,
-            midpoint = 500) +  
-tm_shape(cume_cut) + 
-  tm_raster(title='',
-            style='cat',
-            breaks=c(1),
-            labels=c(paste('Mined by end of',cut_year))) + 
-  tm_layout(legend.position = c(0.05,0.4),
-            legend.bg.color = 'white') 
-
-
+## Raster plotting with tmap (preferred but not available for faster terra)
+#tm_shape(elev_boone) + 
+#   tm_raster(palette='Greys',
+#             style='cont',
+#             legend.show = F,
+#             midpoint = 500) +  
+# tm_shape(cume_cut) + 
+#   tm_raster(title='',
+#             style='cat',
+#             breaks=c(1),
+#             labels=c(paste('Mined by end of',cut_year))) + 
+#   tm_layout(legend.position = c(0.05,0.4),
+#             legend.bg.color = 'white') 
+# 
 ```
 
 ### Animated loop showing how this looks for all years
 
 
-```{r boone gif,include=F}
-boone_gif <- 'figs/boone.gif'
-gif_run = !file.exists(boone_gif)
+```{r boone gif, fig.height = 7,fig.width = 5,  fig.caption = 'Cumulative annual mining and last year mined',interval=0.2, animation.hook='gifski'}
 
 
-if(gif_run){
-  dir.create('figs')
-  cut_years = 1984:2015
+cut_years = 1984:2015
 
-  saveGIF({
-    for(i in cut_years){
-      rcl <- matrix(c(i,2016,NA,
-                1983,i,1),nrow=2,ncol=3,byrow=T)
-      cume_cut <- reclassify(cume_boone,rcl)
+
+
+
+
+for(i in cut_years){
+  
+  rcl <- matrix(c(i+1,2016,NA,
+            1983,i,1),nrow=2,ncol=3,byrow=T)
+  
+  cume_cuts <- classify(cume_boone,rcl)
   
   
   
-      boone_map <- tm_shape(elev_boone) + 
-        tm_raster(palette='Greys',
-                  style='cont',
-                  legend.show = F,
-                  midpoint = 500) +  
-      tm_shape(cume_cut) + 
-        tm_raster(title='',
-                  style='cat',
-                  breaks=c(1),
-                  labels=c(paste('Mined by end of',i))) + 
-        tm_layout(legend.position = c(0.05,0.4),
-                  legend.bg.color = 'white') 
-      print(boone_map)
-    }
-  }, movie.name = 'boone.gif',ani.width=800,ani.height=800,
-  interval=0.2)
-  #No clue why but this code breaks if I put it into a subdirectory. So 
-  #I'll do that manually here. 
-  file.copy('boone.gif',boone_gif)
-  file.remove('boone.gif')
+plot(elev_boone,col=hcl.colors(20,'Grays'),
+       add=F,frame=F,axes=F,leg.shrink=.2,
+     useRaster = T,main=paste('Cumulative Mining Growth'))
+  plot(cume_cuts,col='red',add=T,leg.shrink=.3,useRaster=T)
+
+
+  # boone_map <- tm_shape(elev_boone) + 
+  #   tm_raster(palette='Greys',
+  #             style='cont',
+  #             legend.show = F,
+  #             midpoint = 500) +  
+  #   tm_shape(cume_cut) + 
+  #   tm_raster(title='',
+  #             breaks = c(1984,1995,2005,2015),
+  #             style='cont',
+  #             palette = 'viridis') + 
+  #   tm_layout(legend.position = c(0.05,0.3),
+  #             legend.bg.color = 'white',
+  #             legend.text.size = 1.4,
+  #             legend.format=list(fun=function(x) formatC(x, digits=0, format="d")))
+  # print(boone_map)
 }
+
 
 ```
 
-
-![Cumulative mining expansion in Boone County](boone.gif)
 
 
 ### Filtering and outputting cumulative mining rasters 1984-2015
 
 ```{r}
 
+if(!dir.exists('data/out/annual_cumes')){
 dir.create('data/out/annual_cumes')
+}
 
 #Years for cume data
 years <- 1984:2015
@@ -254,26 +284,24 @@ cumer_run <- !all(file.exists(year_files))
 # Making a function for reclassifying Matrix for every year. 
 
 mine_cumer <- function(year){
+  library(terra)
   #Reclassify matrix
-  rcl <- matrix(c(year,2016,NA,
+  rcl <- matrix(c(year+1,2016,NA,
               1983,year,1),nrow=2,ncol=3,byrow=T)
   
   #Reclassify raster
-  cume_cut <- reclassify(cume,rcl)
+  cume_cut <- classify(cume,rcl)
   
   #write it out
   file = paste0('data/out/annual_cumes/',year,'.tif')
-  writeRaster(cume_cut,filename=file,overwrite=T)
+  terra::writeRaster(cume_cut,filename=file,overwrite=T)
 }
 
-#Future (parallel!) mapping over the years of interest
-
-#Amazingly fast (32 cores, about 20 times faster chez moi)
+#THis is why all the TERRA stuff is worth it about 100X faster than
+#raster and 20X faster than using futures and furrr mapping
 if(cumer_run){
-  plan(multiprocess)
-  outs <- future_map(years,mine_cumer)
+map(years,mine_cumer)
 }
-
 ```
 
 ### Making an empty and a full dataset. 
