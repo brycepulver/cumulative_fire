@@ -16,17 +16,19 @@ library(mapview) #Interactive mapping of sf objects
 library(tidyverse) #Good 'ol tidyverse (dplyr, readr, more)
 library(elevatr) #R access to mapzen (dynamic downloading of DEMs)
 library(raster) # Name says it all, rasters in R
-library(whitebox)
-library(stars) # A bridge to the future of raster (spatiotemporal objects)
+library(whitebox) #amazing terrain analysis package
+library(stars) # (spatiotemporal objects)
 library(USAboundaries)
-library(tmap)
+library(tmap) 
 library(furrr) #Parallel mapping
 library(animation)
-library(terra)
+library(terra) # much faster raster
+library(nhdplusTools) #Navigate america's rivers
 knitr::opts_chunk$set(echo = TRUE,eval = TRUE,
                       cache = TRUE, warning = FALSE,
                       message = FALSE)
 
+par(mar = c(0,0,0,2))
 # Run once!
 #devtools::install_github("giswqs/whiteboxR")
 ```
@@ -36,13 +38,98 @@ knitr::opts_chunk$set(echo = TRUE,eval = TRUE,
 
 ## Data acquisition and organization
 
-### Cumulative mining from Pericack et al., 2018
+
+### Study Area
+
+Let's grab a shapefile of the study area from Pericack et al., 2018. This will
+be a zip of a shapefile, that we will need to unzip. 
+
+```{r}
+
+area_file <- 'data/in/study_area.zip'
+
+if(!file.exists(area_file)){
+download.file('https://ndownloader.figshare.com/articles/6253901?private_link=7a36745020ee5a517dcb',
+              destfile=area_file,method='libcurl',mode='wb')
+
+unzip(area_file, exdir = 'data/in/study_area')
+}
+
+
+```
+
+### Watershed boundaries
+
+
+Our study area is entirely within the 05 HUC 2 watershed basin from the USGS.
+We can download these shapefiles directly from the USGS [here](https://catalog.data.gov/dataset/usgs-national-watershed-boundary-dataset-wbd-downloadable-data-collection-national-geospatial-) 
+
+
+```{r}
+
+
+wbd_file <- 'data/in/wbd_file.zip'
+
+if(!file.exists(wbd_file)){
+download.file('https://prd-tnm.s3.amazonaws.com/StagedProducts/Hydrography/WBD/HU2/Shape/WBD_05_HU2_Shape.zip',
+              destfile = wbd_file, method = 'libcurl', mode = 'wb')
+
+unzip(wbd_file, exdir = 'data/in/wbd')
+
+}
+```
 
 Here we are simply downloading the Pericack et al First Mined dataset from
 figshare using a Rmarkdown trick where we ask "does this file exist locally?"
 If it does, then this code chunk will be skipped. If it doesn't then the 
 data will be downloaded to your local directory under the folder 'data'. We
 use these tricks throughout. 
+
+
+### Flowlines
+
+We will likely want to use our data with the National Hydrography Dataset,
+so let's download some flowlines using Dave Blodgett's excellent `nhdplusTools`
+package.
+
+```{r}
+
+
+huc4_list <- c('0510','0509','0507','0505','0513')
+
+
+
+if(!file.exists('data/in/nhd/simple_lines.gpkg')){
+  download_nhdplushr('data/in/nhd',huc4_list, download_files = T)
+  
+  d <- get_nhdplushr('data/in/nhd/05',
+                     layers = 'NHDFlowline')$NHDFlowline
+  
+  #Get rid of small accumulated ares to make downstream calcs faster
+  d1 <- d %>%
+    filter(TotDASqKM >= 1) %>%
+    st_transform(2163) %>%
+    st_simplify(.,dTolerance = 500) 
+
+  #Subset only large rivers for visualizing and testing burnout approach
+  d3 <- d %>%
+    dplyr::filter(TotDASqKM >= 200) %>%
+    st_transform(2163) %>%
+    st_simplify(.,dTolerance = 500) 
+
+  
+  st_write(d3,'data/in/nhd/simple_lines.gpkg',delete_dsn=T)
+  st_write(d1,'data/in/nhd/lines_1km.gpkg',delete_dsn=T)
+}
+
+
+
+```
+
+
+
+
+### Cumulative mining from Pericack et al., 2018
 
 ```{r download cume}
 
@@ -131,7 +218,7 @@ can see how cumulative mining changes over time, Boone County, WV.
 ### First Mining Year for Boone County
 
 
-```{r first,fig.width= 5,fig.height= 7,fig.cap = 'First year of mountaintop mining in Boone County West Virginia', cache = F}
+```{r first,fig.width= 7,fig.height= 7,fig.cap = 'First year of mountaintop mining in Boone County West Virginia', cache = F}
 
 elev <- rast(proj_dem_file)
 
@@ -152,11 +239,10 @@ elev_boone <- crop(elev,boone)
 #So we have to use base!
 
 
-#OMG base is great again. HCL.colors is nice
-plot(cume_boone,col=hcl.colors(30,'viridis'),frame=F,axes=F,leg.shrink=.3,useRaster=T)
-plot(elev_boone,col=hcl.colors(20,'Grays'),add=T,frame=F,axes=F,leg.shrink=.2,
-     useRaster = T)
-plot(cume_boone,col=hcl.colors(30,'viridis'),add=T,leg.shrink=.3,useRaster=T)
+#OMG HCL.colors is nice
+plot(cume_boone,col=hcl.colors(30,'viridis'),frame=F,axes=F)
+plot(elev_boone,col=hcl.colors(20,'Grays'),add=T,frame=F,axes=F, legend = F)
+plot(cume_boone,col=hcl.colors(30,'viridis'),add=T, legend = F)
 
 
 
@@ -185,7 +271,7 @@ plot(cume_boone,col=hcl.colors(30,'viridis'),add=T,leg.shrink=.3,useRaster=T)
 Just an example of how we are creating these rasters and what they will look 
 like. 
 
-```{r cume,fig.width = 5,fig.height = 6,fig.caption='Cumulative mining as of 1990'}
+```{r cume,fig.width = 7,fig.height = 7,fig.caption='Cumulative mining as of 1990'}
 #Set all values above a year value to NA and all values before or equal to 1990 to 1
 
 cut_year <- 1990 
@@ -195,9 +281,8 @@ rcl <- matrix(c(cut_year,2016,NA,
 
 cume_cut <- classify(cume_boone,rcl)
 
-plot(elev_boone,col=hcl.colors(20,'Grays'),frame=F,axes=F,leg.shrink=.2,
-     useRaster = T)
-plot(cume_cut,col='red',add=T,leg.shrink=.3,useRaster=T)
+plot(elev_boone,col=hcl.colors(20,'Grays'),frame=F,axes=F)
+plot(cume_cut,col='red',add=T,useRaster=T, legend = F)
 
 ## Raster plotting with tmap (preferred but not available for faster terra)
 #tm_shape(elev_boone) + 
@@ -218,11 +303,10 @@ plot(cume_cut,col='red',add=T,leg.shrink=.3,useRaster=T)
 ### Animated loop showing how this looks for all years
 
 
-```{r boone gif, fig.height = 7,fig.width = 5,  fig.caption = 'Cumulative annual mining and last year mined',interval=0.2, animation.hook='gifski'}
+```{r boone gif, fig.height = 7,fig.width = 7,  fig.caption = 'Cumulative annual mining and last year mined',interval=0.2, animation.hook='gifski'}
 
 
 cut_years = 1984:2015
-
 
 
 
@@ -232,14 +316,14 @@ for(i in cut_years){
   rcl <- matrix(c(i+1,2016,NA,
             1983,i,1),nrow=2,ncol=3,byrow=T)
   
-  cume_cuts <- classify(cume_boone,rcl)
+  cume_cuts <- terra::classify(cume_boone,rcl)
   
   
   
-plot(elev_boone,col=hcl.colors(20,'Grays'),
-       add=F,frame=F,axes=F,leg.shrink=.2,
-     useRaster = T,main=paste('Cumulative Mining Growth'))
-  plot(cume_cuts,col='red',add=T,leg.shrink=.3,useRaster=T)
+terra::plot(elev_boone,col=hcl.colors(20,'Grays'),
+       add=F,frame=F,axes=F,main=paste('Cumulative Mining Growth',i))
+  terra::plot(cume_cuts,col='red',add=T,leg.shrink=.3,
+              legend = F)
 
 
   # boone_map <- tm_shape(elev_boone) + 
@@ -304,10 +388,86 @@ map(years,mine_cumer)
 }
 ```
 
-### Making an empty and a full dataset. 
+
+### Picking "whole" flowlines for analysis
+
+A critical aspect of figuring out the percent of mining in river networks is
+understanding if our mining coverage dataset from [Pericack et al., 2015] covers
+the entire watershed. Otherwise we could have a river (like the Ohio), which has
+large portions that it drains from outside of the coverage of our data. 
+
 
 
 ```{r}
+
+## Read in spatially simplified flowlines
+simple_lines <- st_read('data/in/nhd/simple_lines.gpkg') 
+
+## Read in almost complete flowline data
+km1_lines <- st_read('data/in/nhd/lines_1km.gpkg')
+
+
+#Get our study area and reproject
+area <- st_read('data/in/study_area/Study-Area.shp') %>%
+  st_transform(., st_crs(km1_lines)) 
+
+#This creates a thin 2000m band around the study area (and outside of the study)
+#Area by 50m. This skinny band will then be used to grab intersecting 
+#flowlines which will tell us rivers that cross out of our study area boundary
+area_zone <- area %>%
+  #Bring the edge out 2000m
+  st_buffer(2050) %>%
+  #Cast the polygon as a line
+  st_cast(.,'LINESTRING') %>%
+  #Buffer the line by 2000m
+  st_buffer(2000)
+
+
+#Find lines that are outside our study area
+out_lines <- km1_lines %>%
+  group_by(LevelPathI) %>%
+  filter(Pathlength == min(Pathlength)) %>%
+  ungroup() %>%
+  filter(st_intersects(., area_zone, sparse = F))
+
+
+#Get COMIDs for the mainstems that fall outside our study area
+mainstems_out <- out_lines$COMID
+  
+
+
+#Trace areas downstream of these comids
+downstream_of_out <- function(comid,network = km1_lines){
+  burn_out <- get_DM(comid,network = network)
+}
+
+#Run in parallel (slight speed improvements)
+plan(multiprocess)
+burn_outs <- future_map(mainstems_out,downstream_of_out)
+
+#Unlist the map output
+burn_out_vector <- unlist(burn_outs) %>% unique(.)
+
+
+within_lines <- km1_lines %>%
+  .[area,]
+
+burns <- within_lines %>%
+  filter(COMID %in% burn_out_vector2)
+
+
+mapview(within_lines,color = 'blue') + 
+  mapview(burns, color = 'red')
+```
+
+
+### Making an empty and a full dataset. 
+
+The primary `whitebox` function we will be using to generate our cumulative 
+mining maps will be
+
+```{r}
+
 
 ```
 
