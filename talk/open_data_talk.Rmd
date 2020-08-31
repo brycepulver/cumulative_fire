@@ -1,10 +1,11 @@
 ---
-title: "Open science and escaping the chains of the printing press"
+title: "From printing press to pdf, the limits of papers in scholarly publishing and open science"
 author: "Matthew Ross"
 date: "7/21/2020"
 output: 
   revealjs::revealjs_presentation:
     self_contained: false
+    center: true
     incremental: true
     theme: night
     transition: slide
@@ -131,14 +132,13 @@ save(con_sci_race,
 
   - Are we achieving this purpose or these purposes?
 
-- Can papers as the foundational form of scholarly communication accomplish 
-these goals? 
+- Can papers as the foundational form of scholarly communication accomplish these goals? 
 
   - What alternatives do we have or should we have? 
 
 ## Disclaimer
 
-- These are raw ideas, partially (mostly?) intended to provoke conversation
+- `r"(raw)"`
 
 - ![](https://imgs.xkcd.com/comics/here_to_help.png)
 
@@ -151,27 +151,28 @@ these goals?
 
 - One term, five purposes [Fecher and Friesike 2014](https://link.springer.com/chapter/10.1007/978-3-319-00026-8_2)
 
-- ![](open.png)
+- <img src = 'open.png' width = '80%'>
 
-# Are we achieving these purposes? 
+## Are we achieving these purposes? 
 
 - COVID-19 response
 
-  - Public trust in scientists is flat over past ~50 years
+  <!-- - Public trust in scientists is flat over past ~50 years -->
 
--   Race and racism in the geosciences (Dutt 2019)
+- Race and racism in the geosciences (Dutt 2019)
 
-  -   Paper publishing is rooted in white, aristocratic, exclusive societies
+  <!-- - Paper publishing is rooted in white, aristocratic, exclusive societies -->
 
 - COVID-19 research and outreach
 
-  - Publishing lock-in has limited our vision of scholarly communication
+  <!-- - Publishing lock-in has limited our vision for scholarly communication -->
 
 <!-- which necessarily elevates private property aspect of publishing -->
 
 <!-- chaining scientists and tax-payers to the variation on same models from before.  -->
 
-## Public trust
+
+# Public trust
 
 Data from [General Social Survey](https://gss.norc.org/)
 
@@ -220,23 +221,28 @@ we can also do better in so many ways-->
 - Original journal *Philosophical Transactions of the Royal Society of London* created in
 1665 by Henry Oldenburg
 
-- Motivation: attribution and sharing within elite Royal Society
+- Motivation: attribution and sharing within elite, Royal Society
 
-- Amazing paper by [Jean-Claude Guedon 2001](https://arl.secure.nonprofitsoapbox.com/storage/documents/publications/in-oldenburgs-long-shadow.pdf)
+- Amazing paper by [Jean-Claude Guedon, 2001](https://arl.secure.nonprofitsoapbox.com/storage/documents/publications/in-oldenburgs-long-shadow.pdf)
+
+##
+
+![](https://upload.wikimedia.org/wikipedia/commons/4/42/Philosophical_Transactions_Volume_1_frontispiece.jpg)
 
 ## Oldenburg's long shadow
 
-- Guedon argues original publishing design not really aimed at sharing knowledge
+- `Publishing != Knowledge sharing`
 
-- Rather, primarily aimed at copyright and idea "property rights"
+- `Publishing ==  "property rights"`
 
-- For the most part we're still stuck in this mode with serious consequences
+- `almost.equal(1665_publishing,2020_publishing)`
 
 ## Publishing's history helps create our exclusionary present
 
 -![](racism_geo.png)
 
 - [Inefuku and Roh 2016](https://www.google.com/books/edition/_/FvnwDAAAQBAJ?hl=en&gbpv=1&pg=PA107) 
+
 - Why not change?
 <!-- compellingly argue that the publishing industry itself -->
 <!-- has not broken free of it's racist and sexist past and act as
@@ -245,7 +251,7 @@ a direct impediment to minoritized peoples-->
 
 # Publishing lock-in
 
-- From hiring and T&P perspective, scientist = publishing and grants
+- From hiring and T&P perspective, `value(scientist) = publishing + grants`
 
 - Many top-tier journals are old and venerable and... run by private for-profit
 companies
@@ -256,30 +262,45 @@ companies
 ## Consequences of publishing lock-in 
 
 - The traditional (pdf-like) paper is primal
+
   - Not the best way to reach broad audience
+  
   - Well-suited to ceding control to for-profit publishers
+  
+  - Wildly limiting compared to other approaches
 
 - ~ $10 billion in profit for publishing companies [Aspeti et al., 2019](https://infrastructure.sparcopen.org/landscape-analysis)
 
-- ![](https://imgs.xkcd.com/comics/peer_review_2x.png)
+## 
+
+![](https://imgs.xkcd.com/comics/peer_review_2x.png)
 
 
 ## More consequences
 
-- Closed peer-review allows for sexist, racist, exclusionary commentary with no 
-consequences to perpetrators 
+- Closed peer-review allows for biased, sexist, racist, exclusionary 'reviews' with little or no consequences to perpetrators 
 
 - Open access does not solve capitalist or pdf-primacy issues
 
 - Shifting model to researchers paying for open access creates...
 
-- ![](https://www.explainxkcd.com/wiki/images/6/6d/dubious_study.png)
+##
 
-# What is the purpose of open science?
+![](https://www.explainxkcd.com/wiki/images/6/6d/dubious_study.png)
 
-- ![](open.png)
+# Can we achieve open science goals with pdfs as primary output?
 
-- Can we achieve these goals with pdf papers? 
+- Video abstracts
+
+- Plain language summaries
+
+- Key points
+
+- Science journalism
+
+## 
+
+![](https://qt.azureedge.net/resources/quotes-images-large/the-greatest-enemy-of-progress-is-not-stagnation-but-false-progress-7a735267480fd948087dd2a8de9bec86.jpg)
 
 # What should we do instead?
 
@@ -291,9 +312,30 @@ consequences to perpetrators
 
   - Removes traditional peer-review barrier
   
-  - Increases speed to publishing and consequent feedback
+  - Increases speed to publishing and pace of science
   
-  - PLOS BIO Plan U (take some major points)
+  - Can cleanly and immediately solve open acces issues [Sever et al., 2019](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3000273)
+  
+  - Requires training ourselves and society to understand what preprints are and aren't
+  
+##
+
+![](https://www.explainxkcd.com/wiki/images/f/f2/arxiv.png)
+
+  
+# More SciComm?
+
+- <iframe width="600" height="100" src="https://www.youtube.com/embed/YI3tsmFsrOg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+- <iframe width="600" height="100" src="https://www.youtube.com/embed/7SM816P5G9s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+- Radiolab, The Last Archive etc...
+
+- Yes! but also...
+
+<!-- SciComm is still outside of traditionally valued research output -->
+<!-- Requires significant work to produce both paper and scicomm -->
+<!-- Relies on intermediaries to communicate results with mixed effect -->
 
 # Peer-reviewed public engagement?
 
@@ -305,7 +347,7 @@ consequences to perpetrators
 
 - Do we as scientists always need to read a paper to understand an idea? 
 
-- Would other content platforms help us understand more? more quickly?
+- Would other content platforms help us understand more ideas? more quickly?
   
 
 ## Stop-motion movies of PhDs
@@ -325,18 +367,32 @@ consequences to perpetrators
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">🚨Cool <a href="https://twitter.com/hashtag/scicomm?src=hash&amp;ref_src=twsrc%5Etfw">#scicomm</a> podcast alert!🚨 Gather, Share, Teach is a podcast by <a href="https://twitter.com/DukeU?ref_src=twsrc%5Etfw">@DukeU</a> REU student Tyler Edwards that tells behind-the-scenes stories from <a href="https://twitter.com/HubbardBrookNH?ref_src=twsrc%5Etfw">@HubbardBrookNH</a>. New episodes air often! Catch it on google and spotify: <a href="https://t.co/DXVtjSxzad">https://t.co/DXVtjSxzad</a> <a href="https://t.co/MBp7i89fzr">pic.twitter.com/MBp7i89fzr</a></p>&mdash; Jenny Bower (@jennyspatial) <a href="https://twitter.com/jennyspatial/status/1281322747403083794?ref_src=twsrc%5Etfw">July 9, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
-## And more things I haven't thought of
+# And more!
 
 - These formats will connect scientists to people in more direct and transparent ways
 
 - They will also make our science easier to understand for ourselves
 
-- And escape traditional publishing problems 
+- And escape some traditional publishing problems 
 
-# 
+## 
 
-## Preprints
+![](https://miro.medium.com/max/4400/1*E7sZXCOXaZhc7GcLQI0iKw.jpeg)
 
-- [](https://www.explainxkcd.com/wiki/images/f/f2/arxiv.pngg)
+##
+
+<img src = 'open.png' width = '80%'>
+
+# Conclusions
+
+- Science and open science needs more public facing scholarly communication
+
+- The paper is great, but limited, and deserves some 
+competition from other forms
+
+- These new forms may help alleviate some of the
+isolated, exclusionary, and capitalist problems associated with modern peer-review publishing
+
+- Wanna make something new and weird? Let me know!
 
 

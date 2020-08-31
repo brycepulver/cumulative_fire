@@ -24,7 +24,7 @@ library(furrr) #Parallel mapping
 library(animation)
 library(terra) # much faster raster
 library(nhdplusTools) #Navigate america's rivers
-knitr::opts_chunk$set(echo = TRUE,eval = TRUE,
+knitr::opts_chunk$set(echo = TRUE,eval = FALSE,
                       cache = TRUE, warning = FALSE,
                       message = FALSE)
 

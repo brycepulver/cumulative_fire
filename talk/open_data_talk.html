@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Matthew Ross" />
+  <title>From printing press to pdf, the limits of papers in scholarly publishing and open science</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="open_data_talk_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="open_data_talk_files/reveal.js-3.3.0.1/css/theme/night.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="style.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <link href="open_data_talk_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="open_data_talk_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">From printing press to pdf, the limits of papers in scholarly publishing and open science</h1>
+    <h2 class="author">Matthew Ross</h2>
+    <h3 class="date">7/21/2020</h3>
+</section>
+
+<section><section id="talk-overview" class="title-slide slide level1"><h1>Talk overview</h1><ul>
+<li class="fragment"><p>What is the purpose of open science?</p>
+<ul>
+<li class="fragment">Are we achieving this purpose or these purposes?</li>
+</ul></li>
+<li class="fragment"><p>Can papers as the foundational form of scholarly communication accomplish these goals?</p>
+<ul>
+<li class="fragment">What alternatives do we have or should we have?</li>
+</ul></li>
+</ul></section><section id="disclaimer" class="slide level2">
+<h2>Disclaimer</h2>
+<ul>
+<li class="fragment"><p><code>r"(raw)"</code></p></li>
+<li class="fragment"><p><img data-src="https://imgs.xkcd.com/comics/here_to_help.png" /></p></li>
+<li class="fragment"><p>Evan Goldstein helped form, edit, and improve this talk</p></li>
+</ul>
+<!-- - Their are excellent scholars of open science and history of scientific publishing, -->
+<!-- I'm not one of them. -->
+</section></section>
+<section><section id="why-open-science" class="title-slide slide level1"><h1>Why open science?</h1><ul>
+<li class="fragment"><p>One term, five purposes <a href="https://link.springer.com/chapter/10.1007/978-3-319-00026-8_2">Fecher and Friesike 2014</a></p></li>
+<li class="fragment"><p><img src = 'open.png' width = '80%'></p></li>
+</ul></section><section id="are-we-achieving-these-purposes" class="slide level2">
+<h2>Are we achieving these purposes?</h2>
+<ul>
+<li class="fragment"><p>COVID-19 response</p>
+<!-- - Public trust in scientists is flat over past ~50 years --></li>
+<li class="fragment"><p>Race and racism in the geosciences (Dutt 2019)</p>
+<!-- - Paper publishing is rooted in white, aristocratic, exclusive societies --></li>
+<li class="fragment"><p>COVID-19 research and outreach</p>
+<!-- - Publishing lock-in has limited our vision for scholarly communication --></li>
+</ul>
+<!-- which necessarily elevates private property aspect of publishing -->
+<!-- chaining scientists and tax-payers to the variation on same models from before.  -->
+</section></section>
+<section><section id="public-trust" class="title-slide slide level1"><h1>Public trust</h1><p>Data from <a href="https://gss.norc.org/">General Social Survey</a></p>
+<p><img src="open_data_talk_files/figure-revealjs/unnamed-chunk-1-1.png" width="768" /></p></section><section id="education-correlates-with-trust" class="slide level2">
+<h2>Education correlates with trust</h2>
+<p><img src="open_data_talk_files/figure-revealjs/unnamed-chunk-2-1.png" width="768" /></p>
+<!-- Often it's tempting to blame other institutions for these issues, but 
+we can also do better in so many ways-->
+</section></section>
+<section><section id="aristocratic-roots" class="title-slide slide level1"><h1>Aristocratic roots</h1><ul>
+<li class="fragment"><p>Original journal <em>Philosophical Transactions of the Royal Society of London</em> created in 1665 by Henry Oldenburg</p></li>
+<li class="fragment"><p>Motivation: attribution and sharing within elite, Royal Society</p></li>
+<li class="fragment"><p>Amazing paper by <a href="https://arl.secure.nonprofitsoapbox.com/storage/documents/publications/in-oldenburgs-long-shadow.pdf">Jean-Claude Guedon, 2001</a></p></li>
+</ul></section><section id="section" class="slide level2">
+<h2></h2>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/4/42/Philosophical_Transactions_Volume_1_frontispiece.jpg" /></p>
+</section><section id="oldenburgs-long-shadow" class="slide level2">
+<h2>Oldenburg’s long shadow</h2>
+<ul>
+<li class="fragment"><p><code>Publishing != Knowledge sharing</code></p></li>
+<li class="fragment"><p><code>Publishing ==  "property rights"</code></p></li>
+<li class="fragment"><p><code>almost.equal(1665_publishing,2020_publishing)</code></p></li>
+</ul>
+</section><section id="publishings-history-helps-create-our-exclusionary-present" class="slide level2">
+<h2>Publishing’s history helps create our exclusionary present</h2>
+<p>-<img data-src="racism_geo.png" /></p>
+<ul>
+<li class="fragment"><p><a href="https://www.google.com/books/edition/_/FvnwDAAAQBAJ?hl=en&amp;gbpv=1&amp;pg=PA107">Inefuku and Roh 2016</a></p></li>
+<li class="fragment"><p>Why not change? <!-- compellingly argue that the publishing industry itself --> <!-- has not broken free of it's racist and sexist past and act as
+a direct impediment to minoritized peoples--> <!-- - Systemic racism within and outside of academia --></p></li>
+</ul>
+</section></section>
+<section><section id="publishing-lock-in" class="title-slide slide level1"><h1>Publishing lock-in</h1><ul>
+<li class="fragment"><p>From hiring and T&amp;P perspective, <code>value(scientist) = publishing + grants</code></p></li>
+<li class="fragment"><p>Many top-tier journals are old and venerable and… run by private for-profit companies</p></li>
+<li class="fragment"><p>But we all publish there because most immediate/necessary way to help our careers</p></li>
+</ul></section><section id="consequences-of-publishing-lock-in" class="slide level2">
+<h2>Consequences of publishing lock-in</h2>
+<ul>
+<li class="fragment"><p>The traditional (pdf-like) paper is primal</p>
+<ul>
+<li class="fragment"><p>Not the best way to reach broad audience</p></li>
+<li class="fragment"><p>Well-suited to ceding control to for-profit publishers</p></li>
+<li class="fragment"><p>Wildly limiting compared to other approaches</p></li>
+</ul></li>
+<li class="fragment"><p>~ $10 billion in profit for publishing companies <a href="https://infrastructure.sparcopen.org/landscape-analysis">Aspeti et al., 2019</a></p></li>
+</ul>
+</section><section id="section-1" class="slide level2">
+<h2></h2>
+<p><img data-src="https://imgs.xkcd.com/comics/peer_review_2x.png" /></p>
+</section><section id="more-consequences" class="slide level2">
+<h2>More consequences</h2>
+<ul>
+<li class="fragment"><p>Closed peer-review allows for biased, sexist, racist, exclusionary ‘reviews’ with little or no consequences to perpetrators</p></li>
+<li class="fragment"><p>Open access does not solve capitalist or pdf-primacy issues</p></li>
+<li class="fragment"><p>Shifting model to researchers paying for open access creates…</p></li>
+</ul>
+</section><section id="section-2" class="slide level2">
+<h2></h2>
+<p><img data-src="https://www.explainxkcd.com/wiki/images/6/6d/dubious_study.png" /></p>
+</section></section>
+<section><section id="can-we-achieve-open-science-goals-with-pdfs-as-primary-output" class="title-slide slide level1"><h1>Can we achieve open science goals with pdfs as primary output?</h1><ul>
+<li class="fragment"><p>Video abstracts</p></li>
+<li class="fragment"><p>Plain language summaries</p></li>
+<li class="fragment"><p>Key points</p></li>
+<li class="fragment"><p>Science journalism</p></li>
+</ul></section><section id="section-3" class="slide level2">
+<h2></h2>
+<p><img data-src="https://qt.azureedge.net/resources/quotes-images-large/the-greatest-enemy-of-progress-is-not-stagnation-but-false-progress-7a735267480fd948087dd2a8de9bec86.jpg" /></p>
+</section></section>
+<section id="what-should-we-do-instead" class="title-slide slide level1"><h1>What should we do instead?</h1><blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+Things that I hope disappear from <a href="https://twitter.com/hashtag/scholcomm?src=hash&amp;ref_src=twsrc%5Etfw">#scholcomm</a> in the next 10 - 20 years: <br>-paywalls<br>-journal/article as a main container of info<br>-closed peer review <br>-faulty metrics <br>-writing solely for an “academic” audience <br>-authorship order<br>-highly selective journal models
+</p>
+— Ashley Farley (<span class="citation" data-cites="ashleydfarley">@ashleydfarley</span>) <a href="https://twitter.com/ashleydfarley/status/1285709465363390464?ref_src=twsrc%5Etfw">July 21, 2020</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></section>
+<section><section id="preprints" class="title-slide slide level1"><h1>Preprints</h1><ul>
+<li class="fragment"><p>Still traditional paper focus but</p>
+<ul>
+<li class="fragment"><p>Removes traditional peer-review barrier</p></li>
+<li class="fragment"><p>Increases speed to publishing and pace of science</p></li>
+<li class="fragment"><p>Can cleanly and immediately solve open acces issues <a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3000273">Sever et al., 2019</a></p></li>
+<li class="fragment"><p>Requires training ourselves and society to understand what preprints are and aren’t</p></li>
+</ul></li>
+</ul></section><section id="section-4" class="slide level2">
+<h2></h2>
+<p><img data-src="https://www.explainxkcd.com/wiki/images/f/f2/arxiv.png" /></p>
+</section></section>
+<section id="more-scicomm" class="title-slide slide level1"><h1>More SciComm?</h1><ul>
+<li class="fragment"><iframe width="600" height="100" src="https://www.youtube.com/embed/YI3tsmFsrOg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe></li>
+<li class="fragment"><iframe width="600" height="100" src="https://www.youtube.com/embed/7SM816P5G9s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe></li>
+<li class="fragment"><p>Radiolab, The Last Archive etc…</p></li>
+<li class="fragment"><p>Yes! but also…</p></li>
+</ul>
+<!-- SciComm is still outside of traditionally valued research output -->
+<!-- Requires significant work to produce both paper and scicomm -->
+<!-- Relies on intermediaries to communicate results with mixed effect --></section>
+<section><section id="peer-reviewed-public-engagement" class="title-slide slide level1"><h1>Peer-reviewed public engagement?</h1><ul>
+<li class="fragment"><p>Where are the people we want to reach?</p></li>
+<li class="fragment"><p>Are we producing content on these platforms?</p></li>
+<li class="fragment"><p>Is this content valued, supported, and primary (not supportive or dependent on pdf paper)?</p></li>
+<li class="fragment"><p>Do we as scientists always need to read a paper to understand an idea?</p></li>
+<li class="fragment"><p>Would other content platforms help us understand more ideas? more quickly?</p></li>
+</ul></section><section id="stop-motion-movies-of-phds" class="slide level2">
+<h2>Stop-motion movies of PhDs</h2>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+As a scientist I've had an “elevator speech” prepared for a few years now. <br><br>This year I made an “elevator video” &amp; let me tell you: people enjoy seeing my research way more than just hearing about it!<br><br>So what do <a href="https://twitter.com/hashtag/beavers?src=hash&amp;ref_src=twsrc%5Etfw">#beavers</a> have to do with <a href="https://twitter.com/hashtag/wildfire?src=hash&amp;ref_src=twsrc%5Etfw">#wildfire</a>? Watch (with sound) &amp; find out! <a href="https://t.co/axc523sRgq">pic.twitter.com/axc523sRgq</a>
+</p>
+— Dr. Emily Fairfax (<span class="citation" data-cites="EmilyFairfax">@EmilyFairfax</span>) <a href="https://twitter.com/EmilyFairfax/status/1097195169131024384?ref_src=twsrc%5Etfw">February 17, 2019</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section><section id="interactive-hydrograph-visualizers" class="slide level2">
+<h2>Interactive hydrograph visualizers</h2>
+<embed src="https://lsteely.shinyapps.io/streamflow_joyplots/" style="width:1000px; height: 700px;">
+</section><section id="data-visualization-videos" class="slide level2">
+<h2>Data visualization videos</h2>
+<p><img data-src="DataSymphony_Full_13.gif" /></p>
+</section><section id="podcasts" class="slide level2">
+<h2>Podcasts</h2>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+🚨Cool <a href="https://twitter.com/hashtag/scicomm?src=hash&amp;ref_src=twsrc%5Etfw">#scicomm</a> podcast alert!🚨 Gather, Share, Teach is a podcast by <a href="https://twitter.com/DukeU?ref_src=twsrc%5Etfw"><span class="citation" data-cites="DukeU">@DukeU</span></a> REU student Tyler Edwards that tells behind-the-scenes stories from <a href="https://twitter.com/HubbardBrookNH?ref_src=twsrc%5Etfw"><span class="citation" data-cites="HubbardBrookNH">@HubbardBrookNH</span></a>. New episodes air often! Catch it on google and spotify: <a href="https://t.co/DXVtjSxzad">https://t.co/DXVtjSxzad</a> <a href="https://t.co/MBp7i89fzr">pic.twitter.com/MBp7i89fzr</a>
+</p>
+— Jenny Bower (<span class="citation" data-cites="jennyspatial">@jennyspatial</span>) <a href="https://twitter.com/jennyspatial/status/1281322747403083794?ref_src=twsrc%5Etfw">July 9, 2020</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section></section>
+<section><section id="and-more" class="title-slide slide level1"><h1>And more!</h1><ul>
+<li class="fragment"><p>These formats will connect scientists to people in more direct and transparent ways</p></li>
+<li class="fragment"><p>They will also make our science easier to understand for ourselves</p></li>
+<li class="fragment"><p>And escape some traditional publishing problems</p></li>
+</ul></section><section id="section-5" class="slide level2">
+<h2></h2>
+<p><img data-src="https://miro.medium.com/max/4400/1*E7sZXCOXaZhc7GcLQI0iKw.jpeg" /></p>
+</section><section id="section-6" class="slide level2">
+<h2></h2>
+<p><img src = 'open.png' width = '80%'></p>
+</section></section>
+<section id="conclusions" class="title-slide slide level1"><h1>Conclusions</h1><ul>
+<li class="fragment"><p>Science and open science needs more public facing scholarly communication</p></li>
+<li class="fragment"><p>The paper is great, but limited, and deserves some competition from other forms</p></li>
+<li class="fragment"><p>These new forms may help alleviate some of the isolated, exclusionary, and capitalist problems associated with modern peer-review publishing</p></li>
+<li class="fragment"><p>Wanna make something new and weird? Let me know!</p></li>
+</ul></section>
+    </div>
+  </div>
+
+  <script src="open_data_talk_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="open_data_talk_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        chalkboard: {
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'open_data_talk_files/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

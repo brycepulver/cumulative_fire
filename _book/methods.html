@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Methods | Cumulative mining impacts in Appalachian Rivers</title>
+  <meta name="description" content="1 Methods | Cumulative mining impacts in Appalachian Rivers" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Methods | Cumulative mining impacts in Appalachian Rivers" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Methods | Cumulative mining impacts in Appalachian Rivers" />
+  
+  
+  
+
+<meta name="author" content="Dr. Matthew Ross" />
+<meta name="author" content="matt.ross(at)colostate.edu" />
+
+
+<meta name="date" content="2020-08-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>1</b> Methods</a><ul>
+<li class="chapter" data-level="1.1" data-path="methods.html"><a href="methods.html#data-acquisition-and-organization"><i class="fa fa-check"></i><b>1.1</b> Data acquisition and organization</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="methods.html"><a href="methods.html#study-area"><i class="fa fa-check"></i><b>1.1.1</b> Study Area</a></li>
+<li class="chapter" data-level="1.1.2" data-path="methods.html"><a href="methods.html#watershed-boundaries"><i class="fa fa-check"></i><b>1.1.2</b> Watershed boundaries</a></li>
+<li class="chapter" data-level="1.1.3" data-path="methods.html"><a href="methods.html#flowlines"><i class="fa fa-check"></i><b>1.1.3</b> Flowlines</a></li>
+<li class="chapter" data-level="1.1.4" data-path="methods.html"><a href="methods.html#cumulative-mining-from-pericack-et-al.-2018"><i class="fa fa-check"></i><b>1.1.4</b> Cumulative mining from Pericack et al., 2018</a></li>
+<li class="chapter" data-level="1.1.5" data-path="methods.html"><a href="methods.html#merge-dems-from-above"><i class="fa fa-check"></i><b>1.1.5</b> Merge DEMs from above</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="methods.html"><a href="methods.html#data-preparation"><i class="fa fa-check"></i><b>1.2</b> Data preparation</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="methods.html"><a href="methods.html#picking-whole-flowlines-for-analysis"><i class="fa fa-check"></i><b>1.2.1</b> Picking “whole” flowlines for analysis</a></li>
+<li class="chapter" data-level="1.2.2" data-path="methods.html"><a href="methods.html#picking-whole-huc12s"><i class="fa fa-check"></i><b>1.2.2</b> Picking whole huc12s</a></li>
+<li class="chapter" data-level="1.2.3" data-path="methods.html"><a href="methods.html#trim-all-analysis-rasters-to-new-study-area-extent"><i class="fa fa-check"></i><b>1.2.3</b> Trim all analysis rasters to new study area extent</a></li>
+<li class="chapter" data-level="1.2.4" data-path="methods.html"><a href="methods.html#first-mining-year-for-boone-county"><i class="fa fa-check"></i><b>1.2.4</b> First Mining Year for Boone County</a></li>
+<li class="chapter" data-level="1.2.5" data-path="methods.html"><a href="methods.html#cumulative-mining-boone-county-1990"><i class="fa fa-check"></i><b>1.2.5</b> Cumulative mining Boone County 1990</a></li>
+<li class="chapter" data-level="1.2.6" data-path="methods.html"><a href="methods.html#animated-loop-showing-how-this-looks-for-all-years"><i class="fa fa-check"></i><b>1.2.6</b> Animated loop showing how this looks for all years</a></li>
+<li class="chapter" data-level="1.2.7" data-path="methods.html"><a href="methods.html#filtering-and-outputting-cumulative-mining-rasters-1984-2015"><i class="fa fa-check"></i><b>1.2.7</b> Filtering and outputting cumulative mining rasters 1984-2015</a></li>
+<li class="chapter" data-level="1.2.8" data-path="methods.html"><a href="methods.html#final-whitebox-preparation"><i class="fa fa-check"></i><b>1.2.8</b> Final whitebox preparation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="methods.html"><a href="methods.html#data-analysis"><i class="fa fa-check"></i><b>1.3</b> Data Analysis</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="methods.html"><a href="methods.html#breach"><i class="fa fa-check"></i><b>1.3.1</b> Breach</a></li>
+<li class="chapter" data-level="1.3.2" data-path="methods.html"><a href="methods.html#targetted-flow-accumulation"><i class="fa fa-check"></i><b>1.3.2</b> Targetted flow accumulation</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Cumulative mining impacts in Appalachian Rivers</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="methods" class="section level1">
+<h1><span class="header-section-number">1</span> Methods</h1>
+<p>To see how mining coverage has impacted rivers we need two datasets. First
+we need to know when mining first occured on the landscape. Second we need
+to know how these sections of mined lands are connected to river networks and
+how mining impacts might propagate downstream. The first dataset is part of the
+Pericack et al., paper (2018) labeled <code>First Mining Year (GeoTIFF)</code> in the
+figshare data repository. The second dataset we will create here using <code>whitebox</code> and elevation data from the region, but fist we need to download the data.</p>
+<div id="data-acquisition-and-organization" class="section level2">
+<h2><span class="header-section-number">1.1</span> Data acquisition and organization</h2>
+<div id="study-area" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Study Area</h3>
+<p>Let’s grab a shapefile of the study area from Pericack et al., 2018. This will
+be a zip of a shapefile, that we will need to unzip.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="methods.html#cb1-1"></a>area_file &lt;-<span class="st"> &#39;data/in/study_area.zip&#39;</span></span>
+<span id="cb1-2"><a href="methods.html#cb1-2"></a></span>
+<span id="cb1-3"><a href="methods.html#cb1-3"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(area_file)){</span>
+<span id="cb1-4"><a href="methods.html#cb1-4"></a><span class="kw">download.file</span>(<span class="st">&#39;https://ndownloader.figshare.com/articles/6253901?private_link=7a36745020ee5a517dcb&#39;</span>,</span>
+<span id="cb1-5"><a href="methods.html#cb1-5"></a>              <span class="dt">destfile=</span>area_file,<span class="dt">method=</span><span class="st">&#39;libcurl&#39;</span>,<span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)</span>
+<span id="cb1-6"><a href="methods.html#cb1-6"></a></span>
+<span id="cb1-7"><a href="methods.html#cb1-7"></a><span class="kw">unzip</span>(area_file, <span class="dt">exdir =</span> <span class="st">&#39;data/in/study_area&#39;</span>)</span>
+<span id="cb1-8"><a href="methods.html#cb1-8"></a>}</span></code></pre></div>
+</div>
+<div id="watershed-boundaries" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Watershed boundaries</h3>
+<p>Our study area is almost entirelyg within the 05 HUC 2 watershed basin from the USGS.
+We can download these shapefiles directly from the USGS <a href="https://catalog.data.gov/dataset/usgs-national-watershed-boundary-dataset-wbd-downloadable-data-collection-national-geospatial-">here</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="methods.html#cb2-1"></a>wbd_file &lt;-<span class="st"> &#39;data/in/wbd_file.zip&#39;</span></span>
+<span id="cb2-2"><a href="methods.html#cb2-2"></a></span>
+<span id="cb2-3"><a href="methods.html#cb2-3"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(wbd_file)){</span>
+<span id="cb2-4"><a href="methods.html#cb2-4"></a><span class="kw">download.file</span>(<span class="st">&#39;https://prd-tnm.s3.amazonaws.com/StagedProducts/Hydrography/WBD/HU2/Shape/WBD_05_HU2_Shape.zip&#39;</span>,</span>
+<span id="cb2-5"><a href="methods.html#cb2-5"></a>              <span class="dt">destfile =</span> wbd_file, <span class="dt">method =</span> <span class="st">&#39;libcurl&#39;</span>, <span class="dt">mode =</span> <span class="st">&#39;wb&#39;</span>)</span>
+<span id="cb2-6"><a href="methods.html#cb2-6"></a></span>
+<span id="cb2-7"><a href="methods.html#cb2-7"></a><span class="kw">unzip</span>(wbd_file, <span class="dt">exdir =</span> <span class="st">&#39;data/in/wbd&#39;</span>)</span>
+<span id="cb2-8"><a href="methods.html#cb2-8"></a></span>
+<span id="cb2-9"><a href="methods.html#cb2-9"></a>}</span></code></pre></div>
+</div>
+<div id="flowlines" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> Flowlines</h3>
+<p>We will likely want to use our data with the National Hydrography Dataset,
+so let’s download some flowlines using Dave Blodgett’s excellent <code>nhdplusTools</code>
+package.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="methods.html#cb3-1"></a>huc4_list &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;0510&#39;</span>,<span class="st">&#39;0509&#39;</span>,<span class="st">&#39;0507&#39;</span>,<span class="st">&#39;0505&#39;</span>,<span class="st">&#39;0513&#39;</span>)</span>
+<span id="cb3-2"><a href="methods.html#cb3-2"></a></span>
+<span id="cb3-3"><a href="methods.html#cb3-3"></a></span>
+<span id="cb3-4"><a href="methods.html#cb3-4"></a></span>
+<span id="cb3-5"><a href="methods.html#cb3-5"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&#39;data/in/nhd/simple_lines.gpkg&#39;</span>)){</span>
+<span id="cb3-6"><a href="methods.html#cb3-6"></a>  <span class="kw">download_nhdplushr</span>(<span class="st">&#39;data/in/nhd&#39;</span>,huc4_list, <span class="dt">download_files =</span> T)</span>
+<span id="cb3-7"><a href="methods.html#cb3-7"></a>  </span>
+<span id="cb3-8"><a href="methods.html#cb3-8"></a>  d &lt;-<span class="st"> </span><span class="kw">get_nhdplushr</span>(<span class="st">&#39;data/in/nhd/05&#39;</span>,</span>
+<span id="cb3-9"><a href="methods.html#cb3-9"></a>                     <span class="dt">layers =</span> <span class="st">&#39;NHDFlowline&#39;</span>)<span class="op">$</span>NHDFlowline</span>
+<span id="cb3-10"><a href="methods.html#cb3-10"></a>  </span>
+<span id="cb3-11"><a href="methods.html#cb3-11"></a>  <span class="co">#Get rid of small accumulated ares to make downstream calcs faster</span></span>
+<span id="cb3-12"><a href="methods.html#cb3-12"></a>  d1 &lt;-<span class="st"> </span>d <span class="op">%&gt;%</span></span>
+<span id="cb3-13"><a href="methods.html#cb3-13"></a><span class="st">    </span><span class="kw">filter</span>(TotDASqKM <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb3-14"><a href="methods.html#cb3-14"></a><span class="st">    </span><span class="kw">st_transform</span>(<span class="dv">2163</span>) <span class="op">%&gt;%</span></span>
+<span id="cb3-15"><a href="methods.html#cb3-15"></a><span class="st">    </span><span class="kw">st_simplify</span>(.,<span class="dt">dTolerance =</span> <span class="dv">500</span>) </span>
+<span id="cb3-16"><a href="methods.html#cb3-16"></a></span>
+<span id="cb3-17"><a href="methods.html#cb3-17"></a>  <span class="co">#Subset only large rivers for visualizing and testing burnout approach</span></span>
+<span id="cb3-18"><a href="methods.html#cb3-18"></a>  d3 &lt;-<span class="st"> </span>d <span class="op">%&gt;%</span></span>
+<span id="cb3-19"><a href="methods.html#cb3-19"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">filter</span>(TotDASqKM <span class="op">&gt;=</span><span class="st"> </span><span class="dv">200</span>) <span class="op">%&gt;%</span></span>
+<span id="cb3-20"><a href="methods.html#cb3-20"></a><span class="st">    </span><span class="kw">st_transform</span>(<span class="dv">2163</span>) <span class="op">%&gt;%</span></span>
+<span id="cb3-21"><a href="methods.html#cb3-21"></a><span class="st">    </span><span class="kw">st_simplify</span>(.,<span class="dt">dTolerance =</span> <span class="dv">500</span>) </span>
+<span id="cb3-22"><a href="methods.html#cb3-22"></a></span>
+<span id="cb3-23"><a href="methods.html#cb3-23"></a>  </span>
+<span id="cb3-24"><a href="methods.html#cb3-24"></a>  <span class="kw">st_write</span>(d3,<span class="st">&#39;data/in/nhd/simple_lines.gpkg&#39;</span>,<span class="dt">delete_dsn=</span>T)</span>
+<span id="cb3-25"><a href="methods.html#cb3-25"></a>  <span class="kw">st_write</span>(d1,<span class="st">&#39;data/in/nhd/lines_1km.gpkg&#39;</span>,<span class="dt">delete_dsn=</span>T)</span>
+<span id="cb3-26"><a href="methods.html#cb3-26"></a>}</span></code></pre></div>
+</div>
+<div id="cumulative-mining-from-pericack-et-al.-2018" class="section level3">
+<h3><span class="header-section-number">1.1.4</span> Cumulative mining from Pericack et al., 2018</h3>
+<p>Here we are just downloading the cumulative mining data from the Pericack study</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="methods.html#cb4-1"></a><span class="co">#Look for cumulative mining data</span></span>
+<span id="cb4-2"><a href="methods.html#cb4-2"></a>cume_file &lt;-<span class="st"> &#39;data/in/cume.tif&#39;</span></span>
+<span id="cb4-3"><a href="methods.html#cb4-3"></a></span>
+<span id="cb4-4"><a href="methods.html#cb4-4"></a><span class="co">#Check if the file already exists, if not run the commands below. </span></span>
+<span id="cb4-5"><a href="methods.html#cb4-5"></a>cume_downloaded =<span class="st"> </span><span class="op">!</span><span class="kw">file.exists</span>(cume_file)</span>
+<span id="cb4-6"><a href="methods.html#cb4-6"></a></span>
+<span id="cb4-7"><a href="methods.html#cb4-7"></a></span>
+<span id="cb4-8"><a href="methods.html#cb4-8"></a><span class="cf">if</span>(cume_downloaded){</span>
+<span id="cb4-9"><a href="methods.html#cb4-9"></a>  <span class="co">#Create a data repo if one doesn&#39;t exist.</span></span>
+<span id="cb4-10"><a href="methods.html#cb4-10"></a>  <span class="kw">dir.create</span>(<span class="st">&#39;data&#39;</span>)</span>
+<span id="cb4-11"><a href="methods.html#cb4-11"></a>  <span class="kw">dir.create</span>(<span class="st">&#39;data/in&#39;</span>)</span>
+<span id="cb4-12"><a href="methods.html#cb4-12"></a>  <span class="kw">dir.create</span>(<span class="st">&#39;data/out&#39;</span>)</span>
+<span id="cb4-13"><a href="methods.html#cb4-13"></a>  </span>
+<span id="cb4-14"><a href="methods.html#cb4-14"></a>  <span class="co">#Download data locally. Link is from paper</span></span>
+<span id="cb4-15"><a href="methods.html#cb4-15"></a>  <span class="kw">download.file</span>(<span class="st">&#39;https://ndownloader.figshare.com/files/11446991?private_link=e99954fc2876c6e96a7c&#39;</span>,<span class="dt">destfile=</span>cume_file,<span class="dt">method=</span><span class="st">&#39;libcurl&#39;</span>,<span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)</span>
+<span id="cb4-16"><a href="methods.html#cb4-16"></a>  </span>
+<span id="cb4-17"><a href="methods.html#cb4-17"></a></span>
+<span id="cb4-18"><a href="methods.html#cb4-18"></a>}</span></code></pre></div>
+<p>p### Download relevant NHD raster data</p>
+<p>For this analysis we will want to do some of our own terrain analysis work, but
+first we need to download the National Elevation Data snapshots from the NHDPlus
+website, since we will be using their flow accumulation data as well.
+All of this data can be found <a href="https://www.epa.gov/waterdata/nhdplus-ohio-data-vector-processing-unit-05">here</a>,
+and our regions are 05a,c,and d. B is outside of our study region.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="methods.html#cb5-1"></a>dem_download_table &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">type =</span> <span class="kw">c</span>(</span>
+<span id="cb5-2"><a href="methods.html#cb5-2"></a>                                      <span class="st">&#39;fac&#39;</span>,<span class="st">&#39;fac&#39;</span>,<span class="st">&#39;fac&#39;</span>,</span>
+<span id="cb5-3"><a href="methods.html#cb5-3"></a>                                      <span class="st">&#39;dem&#39;</span>,<span class="st">&#39;dem&#39;</span>,<span class="st">&#39;dem&#39;</span>),</span>
+<span id="cb5-4"><a href="methods.html#cb5-4"></a>                             <span class="dt">name =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;c&#39;</span>,<span class="st">&#39;d&#39;</span>), <span class="dt">times =</span> <span class="dv">2</span>),</span>
+<span id="cb5-5"><a href="methods.html#cb5-5"></a>                             <span class="dt">file =</span> <span class="kw">c</span>(<span class="st">&#39;https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05a_FdrFac_01.7z&#39;</span>,<span class="st">&#39;https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05c_FdrFac_01.7z&#39;</span>,<span class="st">&#39;https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05d_FdrFac_01.7z&#39;</span>,<span class="st">&#39;https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05a_NEDSnapshot_01.7z&#39;</span>,<span class="st">&#39;https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05c_NEDSnapshot_01.7z&#39;</span>,<span class="st">&#39;https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05d_NEDSnapshot_01.7z&#39;</span>),</span>
+<span id="cb5-6"><a href="methods.html#cb5-6"></a>                             <span class="dt">destfile =</span> <span class="kw">paste0</span>(<span class="st">&#39;data/in/nhd_dem/&#39;</span>,type,<span class="st">&#39;_&#39;</span>,name,<span class="st">&#39;.7z&#39;</span>),</span>
+<span id="cb5-7"><a href="methods.html#cb5-7"></a>                             <span class="dt">destfolder =</span> <span class="kw">gsub</span>(<span class="st">&#39;</span><span class="ch">\\</span><span class="st">.7z&#39;</span>,<span class="st">&#39;&#39;</span>,destfile))</span>
+<span id="cb5-8"><a href="methods.html#cb5-8"></a>  </span>
+<span id="cb5-9"><a href="methods.html#cb5-9"></a></span>
+<span id="cb5-10"><a href="methods.html#cb5-10"></a><span class="kw">dir.create</span>(<span class="st">&#39;data/in/nhd_dem&#39;</span>)</span>
+<span id="cb5-11"><a href="methods.html#cb5-11"></a></span>
+<span id="cb5-12"><a href="methods.html#cb5-12"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(dem_download_table<span class="op">$</span>destfile[<span class="dv">1</span>])){</span>
+<span id="cb5-13"><a href="methods.html#cb5-13"></a>nhd_dem_downloader &lt;-<span class="st"> </span><span class="cf">function</span>(type,name,file, destfile, destfolder){</span>
+<span id="cb5-14"><a href="methods.html#cb5-14"></a>  <span class="kw">download.file</span>(file,</span>
+<span id="cb5-15"><a href="methods.html#cb5-15"></a>                <span class="dt">destfile =</span> destfile,</span>
+<span id="cb5-16"><a href="methods.html#cb5-16"></a>                <span class="dt">mode =</span> <span class="st">&#39;wb&#39;</span>)</span>
+<span id="cb5-17"><a href="methods.html#cb5-17"></a></span>
+<span id="cb5-18"><a href="methods.html#cb5-18"></a>  <span class="co">#7zip extraction e = extracat -0 = output folder</span></span>
+<span id="cb5-19"><a href="methods.html#cb5-19"></a>  <span class="co">#y = yes to all 7z questions</span></span>
+<span id="cb5-20"><a href="methods.html#cb5-20"></a>  <span class="co">#r = recursive extraction</span></span>
+<span id="cb5-21"><a href="methods.html#cb5-21"></a>  <span class="co">#-spf = put files back in folders they are zipped in</span></span>
+<span id="cb5-22"><a href="methods.html#cb5-22"></a>  <span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&#39;7z e &#39;</span>,destfile,<span class="st">&#39; -o&#39;</span>,destfolder,<span class="st">&#39; -y -r -spf&#39;</span>))</span>
+<span id="cb5-23"><a href="methods.html#cb5-23"></a>  <span class="co">#This works but produces a deeply nested output file. Easily addressed, but</span></span>
+<span id="cb5-24"><a href="methods.html#cb5-24"></a>  <span class="co">#annoying.</span></span>
+<span id="cb5-25"><a href="methods.html#cb5-25"></a>  <span class="kw">file.remove</span>(destfile)</span>
+<span id="cb5-26"><a href="methods.html#cb5-26"></a>}</span>
+<span id="cb5-27"><a href="methods.html#cb5-27"></a></span>
+<span id="cb5-28"><a href="methods.html#cb5-28"></a><span class="co">#Walk over this data and collect outputs!</span></span>
+<span id="cb5-29"><a href="methods.html#cb5-29"></a></span>
+<span id="cb5-30"><a href="methods.html#cb5-30"></a>  <span class="kw">pwalk</span>(dem_download_table,nhd_dem_downloader)</span>
+<span id="cb5-31"><a href="methods.html#cb5-31"></a>}</span></code></pre></div>
+</div>
+<div id="merge-dems-from-above" class="section level3">
+<h3><span class="header-section-number">1.1.5</span> Merge DEMs from above</h3>
+<p>Still data acquisition? Questionable, but just merging with very fast terra.
+You’ll need lots of memory to do this (I needed 10gb ram)</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="methods.html#cb6-1"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&#39;data/in/nhd_dem.tif&#39;</span>)){</span>
+<span id="cb6-2"><a href="methods.html#cb6-2"></a>  <span class="co">#These tables are basically instruction tables</span></span>
+<span id="cb6-3"><a href="methods.html#cb6-3"></a>  merge_table &lt;-<span class="st"> </span>dem_download_table <span class="op">%&gt;%</span></span>
+<span id="cb6-4"><a href="methods.html#cb6-4"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">destfolder =</span> <span class="kw">gsub</span>(<span class="st">&#39;</span><span class="ch">\\</span><span class="st">.7z&#39;</span>,<span class="st">&#39;&#39;</span>,destfile),</span>
+<span id="cb6-5"><a href="methods.html#cb6-5"></a>           <span class="dt">full_paths =</span> <span class="kw">ifelse</span>(type <span class="op">==</span><span class="st"> &#39;fac&#39;</span>,</span>
+<span id="cb6-6"><a href="methods.html#cb6-6"></a>                               <span class="kw">paste0</span>(destfolder,</span>
+<span id="cb6-7"><a href="methods.html#cb6-7"></a>                                      <span class="st">&#39;/NHDPlusMS/NHDPlus05/NHDPlusFdrFac05&#39;</span>,</span>
+<span id="cb6-8"><a href="methods.html#cb6-8"></a>                                      name,<span class="st">&#39;/fac/w001001.adf&#39;</span>),</span>
+<span id="cb6-9"><a href="methods.html#cb6-9"></a>                              <span class="kw">paste0</span>(destfolder,</span>
+<span id="cb6-10"><a href="methods.html#cb6-10"></a>                                     <span class="st">&#39;/NHDPlusMS/NHDPlus05/NEDSnapshot/Ned05&#39;</span>,</span>
+<span id="cb6-11"><a href="methods.html#cb6-11"></a>                                     name,<span class="st">&#39;/elev_cm/w001001.adf&#39;</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb6-12"><a href="methods.html#cb6-12"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(type,full_paths) <span class="op">%&gt;%</span></span>
+<span id="cb6-13"><a href="methods.html#cb6-13"></a><span class="st">    </span><span class="kw">group_by</span>(type) <span class="op">%&gt;%</span></span>
+<span id="cb6-14"><a href="methods.html#cb6-14"></a><span class="st">    </span><span class="kw">nest</span>() <span class="op">%&gt;%</span></span>
+<span id="cb6-15"><a href="methods.html#cb6-15"></a><span class="st">    </span><span class="kw">rename</span>(<span class="dt">files =</span> data)</span>
+<span id="cb6-16"><a href="methods.html#cb6-16"></a>  </span>
+<span id="cb6-17"><a href="methods.html#cb6-17"></a>  crs_rast &lt;-<span class="st"> </span>merge_table <span class="op">%&gt;%</span></span>
+<span id="cb6-18"><a href="methods.html#cb6-18"></a><span class="st">    </span><span class="kw">unnest</span>(files) <span class="op">%&gt;%</span></span>
+<span id="cb6-19"><a href="methods.html#cb6-19"></a><span class="st">    </span><span class="kw">pull</span>(full_paths) <span class="op">%&gt;%</span></span>
+<span id="cb6-20"><a href="methods.html#cb6-20"></a><span class="st">    </span>.[<span class="dv">1</span>]<span class="op">%&gt;%</span></span>
+<span id="cb6-21"><a href="methods.html#cb6-21"></a><span class="st">    </span><span class="kw">raster</span>(.)</span>
+<span id="cb6-22"><a href="methods.html#cb6-22"></a>  </span>
+<span id="cb6-23"><a href="methods.html#cb6-23"></a>  area &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&#39;data/in/study_area/Study-Area.shp&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-24"><a href="methods.html#cb6-24"></a><span class="st">    </span><span class="kw">st_transform</span>(.,<span class="kw">st_crs</span>(crs_rast))</span>
+<span id="cb6-25"><a href="methods.html#cb6-25"></a>  </span>
+<span id="cb6-26"><a href="methods.html#cb6-26"></a>  </span>
+<span id="cb6-27"><a href="methods.html#cb6-27"></a>  terra_merge &lt;-<span class="st"> </span><span class="cf">function</span>(type,files){</span>
+<span id="cb6-28"><a href="methods.html#cb6-28"></a>    files =<span class="st"> </span><span class="kw">unnest</span>(files, <span class="dt">cols =</span> <span class="kw">c</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb6-29"><a href="methods.html#cb6-29"></a><span class="st">      </span><span class="kw">pull</span>(full_paths)</span>
+<span id="cb6-30"><a href="methods.html#cb6-30"></a>    container &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb6-31"><a href="methods.html#cb6-31"></a>    <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(files)){</span>
+<span id="cb6-32"><a href="methods.html#cb6-32"></a>      out &lt;-<span class="st"> </span><span class="kw">raster</span>(files[i]) <span class="op">%&gt;%</span></span>
+<span id="cb6-33"><a href="methods.html#cb6-33"></a><span class="st">        </span><span class="kw">crop</span>(.,area) </span>
+<span id="cb6-34"><a href="methods.html#cb6-34"></a>      </span>
+<span id="cb6-35"><a href="methods.html#cb6-35"></a>      <span class="cf">if</span>(<span class="kw">grepl</span>(<span class="st">&#39;elev_cm&#39;</span>,files[i])){</span>
+<span id="cb6-36"><a href="methods.html#cb6-36"></a>        <span class="co">#convert to meters</span></span>
+<span id="cb6-37"><a href="methods.html#cb6-37"></a>        out &lt;-<span class="st"> </span>out<span class="op">/</span><span class="dv">100</span> </span>
+<span id="cb6-38"><a href="methods.html#cb6-38"></a>      }</span>
+<span id="cb6-39"><a href="methods.html#cb6-39"></a>      </span>
+<span id="cb6-40"><a href="methods.html#cb6-40"></a>      container[[i]] &lt;-<span class="st"> </span>out</span>
+<span id="cb6-41"><a href="methods.html#cb6-41"></a>        </span>
+<span id="cb6-42"><a href="methods.html#cb6-42"></a>    }</span>
+<span id="cb6-43"><a href="methods.html#cb6-43"></a>    <span class="co">#Sadly terra had unexpected behavior here so terra::merge is really raster merge</span></span>
+<span id="cb6-44"><a href="methods.html#cb6-44"></a>    merged &lt;-<span class="st"> </span><span class="kw">do.call</span>(merge,container)</span>
+<span id="cb6-45"><a href="methods.html#cb6-45"></a>    </span>
+<span id="cb6-46"><a href="methods.html#cb6-46"></a>    <span class="kw">writeRaster</span>(merged,<span class="dt">filename =</span></span>
+<span id="cb6-47"><a href="methods.html#cb6-47"></a>                         <span class="kw">paste0</span>(<span class="st">&#39;data/in/nhd_&#39;</span>,type,<span class="st">&#39;.tif&#39;</span>),</span>
+<span id="cb6-48"><a href="methods.html#cb6-48"></a>                       <span class="dt">overwrite =</span> T)</span>
+<span id="cb6-49"><a href="methods.html#cb6-49"></a>  }</span>
+<span id="cb6-50"><a href="methods.html#cb6-50"></a>  </span>
+<span id="cb6-51"><a href="methods.html#cb6-51"></a>  </span>
+<span id="cb6-52"><a href="methods.html#cb6-52"></a>  <span class="kw">pwalk</span>(merge_table,terra_merge)</span>
+<span id="cb6-53"><a href="methods.html#cb6-53"></a>}</span></code></pre></div>
+<div id="using-elevatr" class="section level4">
+<h4><span class="header-section-number">1.1.5.1</span> Using elevatr</h4>
+<p>This is not recommended because for such large scale analysis, we should
+use the DEMs provided directly from the USGS instead of the aggregated and
+tiled DEMs from <code>elevatr</code>. I left this here because <code>elevatr</code> is great and would
+likely still work with some tweaks.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="methods.html#cb7-1"></a>raw_dem_file &lt;-<span class="st"> &#39;data/in/elev_raw.tif&#39;</span></span>
+<span id="cb7-2"><a href="methods.html#cb7-2"></a>raw_dem_eval &lt;-<span class="st"> </span><span class="op">!</span><span class="kw">file.exists</span>(raw_dem_file)</span>
+<span id="cb7-3"><a href="methods.html#cb7-3"></a></span>
+<span id="cb7-4"><a href="methods.html#cb7-4"></a></span>
+<span id="cb7-5"><a href="methods.html#cb7-5"></a><span class="cf">if</span>(raw_dem_eval){</span>
+<span id="cb7-6"><a href="methods.html#cb7-6"></a>  <span class="co">#Download data from elevatr (mapzen)</span></span>
+<span id="cb7-7"><a href="methods.html#cb7-7"></a>  cume_r &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="st">&#39;data/in/cume.tif&#39;</span>)</span>
+<span id="cb7-8"><a href="methods.html#cb7-8"></a>  elev_raw &lt;-<span class="st"> </span><span class="kw">get_elev_raster</span>(cume_r,<span class="dt">z=</span><span class="dv">11</span>)</span>
+<span id="cb7-9"><a href="methods.html#cb7-9"></a>  <span class="co">#Save raw file</span></span>
+<span id="cb7-10"><a href="methods.html#cb7-10"></a>  <span class="kw">writeRaster</span>(elev_raw,raw_dem_file,<span class="dt">overwrite=</span>T)</span>
+<span id="cb7-11"><a href="methods.html#cb7-11"></a>}</span></code></pre></div>
+</div>
+<div id="reproject-elevation-data-into-same-projection-as-cumulative-mining-tif." class="section level4">
+<h4><span class="header-section-number">1.1.5.2</span> Reproject elevation data into same projection as cumulative mining tif.</h4>
+<p>The elevatr comes down in a different projection than the cumulative mining
+dataset, so we need to reproject it so that the cells match exactly in
+resolution and location</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="methods.html#cb8-1"></a>proj_dem_file &lt;-<span class="st"> &#39;data/out/elev.tif&#39;</span></span>
+<span id="cb8-2"><a href="methods.html#cb8-2"></a>reproject &lt;-<span class="st"> </span><span class="op">!</span><span class="kw">file.exists</span>(proj_dem_file)</span>
+<span id="cb8-3"><a href="methods.html#cb8-3"></a></span>
+<span id="cb8-4"><a href="methods.html#cb8-4"></a><span class="cf">if</span>(reproject){</span>
+<span id="cb8-5"><a href="methods.html#cb8-5"></a>  elev_raw &lt;-<span class="st"> </span><span class="kw">rast</span>(<span class="st">&#39;data/in/elev_raw.tif&#39;</span>)</span>
+<span id="cb8-6"><a href="methods.html#cb8-6"></a>  cume &lt;-<span class="st"> </span><span class="kw">rast</span>(<span class="st">&#39;data/in/cume.tif&#39;</span>)</span>
+<span id="cb8-7"><a href="methods.html#cb8-7"></a>  <span class="co">#Project raster into cumulative raster cells and projection</span></span>
+<span id="cb8-8"><a href="methods.html#cb8-8"></a>  elev &lt;-<span class="st"> </span><span class="kw">project</span>(elev_raw,cume)</span>
+<span id="cb8-9"><a href="methods.html#cb8-9"></a>  <span class="co">#Save this elev data for whitebox</span></span>
+<span id="cb8-10"><a href="methods.html#cb8-10"></a>  terra<span class="op">::</span><span class="kw">writeRaster</span>(elev,proj_dem_file,<span class="dt">overwrite=</span>T)</span>
+<span id="cb8-11"><a href="methods.html#cb8-11"></a>}</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="data-preparation" class="section level2">
+<h2><span class="header-section-number">1.2</span> Data preparation</h2>
+<p>To prepare our data for whitebox terrain analyses, we need to process our
+cumulative mining layer so that we produce 31 rasters that have cumulative mining
+coverage up to that year. So we will make a tif called “1984.tif” and it will
+only contain mining up to 1984, and then 1985, ’86 and so on. To demonstrate
+this process we’ll look at a county where there has been a lot of mining so we
+can see how cumulative mining changes over time, Boone County, WV.</p>
+<div id="picking-whole-flowlines-for-analysis" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Picking “whole” flowlines for analysis</h3>
+<p>A critical aspect of figuring out the percent of mining in river networks is
+understanding if our mining coverage dataset from [Pericack et al., 2015] covers
+the entire watershed. Otherwise we could have a river (like the Ohio), which has
+large portions that it drains from outside of the coverage of our data. Here we
+will use the amazing <code>NHDPlusTools</code> package from Dave Blodgett to find all
+the flowlines that originate outside of our study area. Later we will “burn”
+these lines out of our analysis.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="methods.html#cb9-1"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&#39;data/out/nhd/burns.gpkg&#39;</span>)){</span>
+<span id="cb9-2"><a href="methods.html#cb9-2"></a>  <span class="co">## Read in spatially simplified flowlines</span></span>
+<span id="cb9-3"><a href="methods.html#cb9-3"></a>  simple_lines &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&#39;data/in/nhd/simple_lines.gpkg&#39;</span>) </span>
+<span id="cb9-4"><a href="methods.html#cb9-4"></a>  </span>
+<span id="cb9-5"><a href="methods.html#cb9-5"></a>  <span class="co">## Read in almost complete flowline data</span></span>
+<span id="cb9-6"><a href="methods.html#cb9-6"></a>  km1_lines &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&#39;data/in/nhd/lines_1km.gpkg&#39;</span>)</span>
+<span id="cb9-7"><a href="methods.html#cb9-7"></a>  </span>
+<span id="cb9-8"><a href="methods.html#cb9-8"></a>  </span>
+<span id="cb9-9"><a href="methods.html#cb9-9"></a>  <span class="co">#Get our study area and reproject</span></span>
+<span id="cb9-10"><a href="methods.html#cb9-10"></a>  area &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&#39;data/in/study_area/Study-Area.shp&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-11"><a href="methods.html#cb9-11"></a><span class="st">    </span><span class="kw">st_transform</span>(., <span class="kw">st_crs</span>(km1_lines)) </span>
+<span id="cb9-12"><a href="methods.html#cb9-12"></a>  </span>
+<span id="cb9-13"><a href="methods.html#cb9-13"></a>  <span class="co">#This creates a thin 2000m band around the study area (and outside of the study)</span></span>
+<span id="cb9-14"><a href="methods.html#cb9-14"></a>  <span class="co">#Area by 50m. This skinny band will then be used to grab intersecting </span></span>
+<span id="cb9-15"><a href="methods.html#cb9-15"></a>  <span class="co">#flowlines which will tell us rivers that cross out of our study area boundary</span></span>
+<span id="cb9-16"><a href="methods.html#cb9-16"></a>  area_zone &lt;-<span class="st"> </span>area <span class="op">%&gt;%</span></span>
+<span id="cb9-17"><a href="methods.html#cb9-17"></a><span class="st">    </span><span class="co">#Bring the edge out 2000m</span></span>
+<span id="cb9-18"><a href="methods.html#cb9-18"></a><span class="st">    </span><span class="kw">st_buffer</span>(<span class="dv">2050</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-19"><a href="methods.html#cb9-19"></a><span class="st">    </span><span class="co">#Cast the polygon as a line</span></span>
+<span id="cb9-20"><a href="methods.html#cb9-20"></a><span class="st">    </span><span class="kw">st_cast</span>(.,<span class="st">&#39;LINESTRING&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-21"><a href="methods.html#cb9-21"></a><span class="st">    </span><span class="co">#Buffer the line by 2000m</span></span>
+<span id="cb9-22"><a href="methods.html#cb9-22"></a><span class="st">    </span><span class="kw">st_buffer</span>(<span class="dv">2000</span>)</span>
+<span id="cb9-23"><a href="methods.html#cb9-23"></a>  </span>
+<span id="cb9-24"><a href="methods.html#cb9-24"></a>  </span>
+<span id="cb9-25"><a href="methods.html#cb9-25"></a>  <span class="co">#Find lines that are outside our study area</span></span>
+<span id="cb9-26"><a href="methods.html#cb9-26"></a>  out_lines &lt;-<span class="st"> </span>km1_lines <span class="op">%&gt;%</span></span>
+<span id="cb9-27"><a href="methods.html#cb9-27"></a><span class="st">    </span><span class="kw">group_by</span>(LevelPathI) <span class="op">%&gt;%</span></span>
+<span id="cb9-28"><a href="methods.html#cb9-28"></a><span class="st">    </span><span class="kw">filter</span>(Pathlength <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(Pathlength)) <span class="op">%&gt;%</span></span>
+<span id="cb9-29"><a href="methods.html#cb9-29"></a><span class="st">    </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
+<span id="cb9-30"><a href="methods.html#cb9-30"></a><span class="st">    </span><span class="kw">filter</span>(<span class="kw">st_intersects</span>(., area_zone, <span class="dt">sparse =</span> F))</span>
+<span id="cb9-31"><a href="methods.html#cb9-31"></a>  </span>
+<span id="cb9-32"><a href="methods.html#cb9-32"></a>  </span>
+<span id="cb9-33"><a href="methods.html#cb9-33"></a>  <span class="co">#Get COMIDs for the mainstems that fall outside our study area</span></span>
+<span id="cb9-34"><a href="methods.html#cb9-34"></a>  mainstems_out &lt;-<span class="st"> </span>out_lines<span class="op">$</span>COMID</span>
+<span id="cb9-35"><a href="methods.html#cb9-35"></a>    </span>
+<span id="cb9-36"><a href="methods.html#cb9-36"></a>  </span>
+<span id="cb9-37"><a href="methods.html#cb9-37"></a>  </span>
+<span id="cb9-38"><a href="methods.html#cb9-38"></a>  <span class="co">#Trace areas downstream of these comids</span></span>
+<span id="cb9-39"><a href="methods.html#cb9-39"></a>  downstream_of_out &lt;-<span class="st"> </span><span class="cf">function</span>(comid,<span class="dt">network =</span> km1_lines){</span>
+<span id="cb9-40"><a href="methods.html#cb9-40"></a>    burn_out &lt;-<span class="st"> </span><span class="kw">get_DM</span>(comid,<span class="dt">network =</span> network)</span>
+<span id="cb9-41"><a href="methods.html#cb9-41"></a>  }</span>
+<span id="cb9-42"><a href="methods.html#cb9-42"></a>  </span>
+<span id="cb9-43"><a href="methods.html#cb9-43"></a>  <span class="co">#Run in parallel (slight speed improvements)</span></span>
+<span id="cb9-44"><a href="methods.html#cb9-44"></a>  <span class="kw">plan</span>(multiprocess)</span>
+<span id="cb9-45"><a href="methods.html#cb9-45"></a>  burn_outs &lt;-<span class="st"> </span><span class="kw">future_map</span>(mainstems_out,downstream_of_out)</span>
+<span id="cb9-46"><a href="methods.html#cb9-46"></a>  </span>
+<span id="cb9-47"><a href="methods.html#cb9-47"></a>  <span class="co">#Unlist the map output</span></span>
+<span id="cb9-48"><a href="methods.html#cb9-48"></a>  burn_out_vector &lt;-<span class="st"> </span><span class="kw">unlist</span>(burn_outs) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unique</span>(.)</span>
+<span id="cb9-49"><a href="methods.html#cb9-49"></a>  </span>
+<span id="cb9-50"><a href="methods.html#cb9-50"></a>  </span>
+<span id="cb9-51"><a href="methods.html#cb9-51"></a>  within_lines &lt;-<span class="st"> </span>km1_lines <span class="op">%&gt;%</span></span>
+<span id="cb9-52"><a href="methods.html#cb9-52"></a><span class="st">    </span>.[area,]</span>
+<span id="cb9-53"><a href="methods.html#cb9-53"></a>  </span>
+<span id="cb9-54"><a href="methods.html#cb9-54"></a>  burns &lt;-<span class="st"> </span>within_lines <span class="op">%&gt;%</span></span>
+<span id="cb9-55"><a href="methods.html#cb9-55"></a><span class="st">    </span><span class="kw">filter</span>(COMID <span class="op">%in%</span><span class="st"> </span>burn_out_vector)</span>
+<span id="cb9-56"><a href="methods.html#cb9-56"></a>  </span>
+<span id="cb9-57"><a href="methods.html#cb9-57"></a>  within_simple &lt;-<span class="st"> </span>simple_lines <span class="op">%&gt;%</span></span>
+<span id="cb9-58"><a href="methods.html#cb9-58"></a><span class="st">    </span>.[area,]</span>
+<span id="cb9-59"><a href="methods.html#cb9-59"></a>  </span>
+<span id="cb9-60"><a href="methods.html#cb9-60"></a>  </span>
+<span id="cb9-61"><a href="methods.html#cb9-61"></a>  burn_simple &lt;-<span class="st"> </span>within_simple <span class="op">%&gt;%</span></span>
+<span id="cb9-62"><a href="methods.html#cb9-62"></a><span class="st">    </span><span class="kw">filter</span>(COMID <span class="op">%in%</span><span class="st"> </span>burn_out_vector)</span>
+<span id="cb9-63"><a href="methods.html#cb9-63"></a>  </span>
+<span id="cb9-64"><a href="methods.html#cb9-64"></a>  <span class="co">#Careful these are simplified lines. </span></span>
+<span id="cb9-65"><a href="methods.html#cb9-65"></a>  <span class="co">#For burning them into our analysis we will want to use</span></span>
+<span id="cb9-66"><a href="methods.html#cb9-66"></a>  <span class="co">#the full lines from get_nhdplus. </span></span>
+<span id="cb9-67"><a href="methods.html#cb9-67"></a>  <span class="kw">write.csv</span>(burn_out_vector, <span class="st">&#39;data/out/burn_comids.csv&#39;</span>)</span>
+<span id="cb9-68"><a href="methods.html#cb9-68"></a>  <span class="kw">st_write</span>(within_lines, <span class="st">&#39;data/out/nhd/within_lines.gpkg&#39;</span>)</span>
+<span id="cb9-69"><a href="methods.html#cb9-69"></a>  <span class="kw">st_write</span>(burns, <span class="st">&#39;data/out/nhd/burns.gpkg&#39;</span>) </span>
+<span id="cb9-70"><a href="methods.html#cb9-70"></a>  <span class="kw">st_write</span>(within_simple, <span class="st">&#39;data/out/nhd/within_simple.gpkg&#39;</span>)</span>
+<span id="cb9-71"><a href="methods.html#cb9-71"></a>  <span class="kw">st_write</span>(burn_simple, <span class="st">&#39;data/out/nhd/burn_simple.gpkg&#39;</span>)</span>
+<span id="cb9-72"><a href="methods.html#cb9-72"></a>}</span>
+<span id="cb9-73"><a href="methods.html#cb9-73"></a></span>
+<span id="cb9-74"><a href="methods.html#cb9-74"></a>charleston &lt;-<span class="st"> </span><span class="kw">us_cities</span>() <span class="op">%&gt;%</span></span>
+<span id="cb9-75"><a href="methods.html#cb9-75"></a><span class="st">  </span><span class="kw">filter</span>(city <span class="op">==</span><span class="st"> &#39;Charleston&#39;</span> <span class="op">&amp;</span><span class="st"> </span>state_abbr <span class="op">==</span><span class="st"> &#39;WV&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-76"><a href="methods.html#cb9-76"></a><span class="st">  </span><span class="kw">st_transform</span>(<span class="dv">2163</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-77"><a href="methods.html#cb9-77"></a><span class="st">  </span><span class="kw">st_buffer</span>(<span class="dv">50000</span>)</span>
+<span id="cb9-78"><a href="methods.html#cb9-78"></a></span>
+<span id="cb9-79"><a href="methods.html#cb9-79"></a></span>
+<span id="cb9-80"><a href="methods.html#cb9-80"></a><span class="co">## Visualize simplified lines around charleston</span></span>
+<span id="cb9-81"><a href="methods.html#cb9-81"></a>within_simple &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&#39;data/out/nhd/within_simple.gpkg&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-82"><a href="methods.html#cb9-82"></a><span class="st">  </span>.[charleston,]</span>
+<span id="cb9-83"><a href="methods.html#cb9-83"></a></span>
+<span id="cb9-84"><a href="methods.html#cb9-84"></a>burn_simple &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&#39;data/out/nhd/burn_simple.gpkg&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-85"><a href="methods.html#cb9-85"></a><span class="st">  </span>.[charleston,]</span>
+<span id="cb9-86"><a href="methods.html#cb9-86"></a></span>
+<span id="cb9-87"><a href="methods.html#cb9-87"></a>  <span class="co">#Get our study area and reproject</span></span>
+<span id="cb9-88"><a href="methods.html#cb9-88"></a>c_area &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&#39;data/in/study_area/Study-Area.shp&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-89"><a href="methods.html#cb9-89"></a><span class="st">  </span><span class="kw">st_transform</span>(., <span class="kw">st_crs</span>(within_simple))  </span>
+<span id="cb9-90"><a href="methods.html#cb9-90"></a></span>
+<span id="cb9-91"><a href="methods.html#cb9-91"></a><span class="kw">mapview</span>(within_simple, <span class="dt">color =</span> <span class="st">&#39;blue&#39;</span>, <span class="dt">layer.name =</span> <span class="st">&#39;Contained river&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-92"><a href="methods.html#cb9-92"></a><span class="st">  </span><span class="kw">mapview</span>(burn_simple, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">layer.name =</span> <span class="st">&#39;Burn out river&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-93"><a href="methods.html#cb9-93"></a><span class="st">  </span><span class="kw">mapview</span>(c_area, <span class="dt">col.region =</span> <span class="st">&#39;gray30&#39;</span>, <span class="dt">layer.name =</span> <span class="st">&#39;Study area&#39;</span>, <span class="dt">homebutton =</span> F)</span></code></pre></div>
+</div>
+<div id="picking-whole-huc12s" class="section level3">
+<h3><span class="header-section-number">1.2.2</span> Picking whole huc12s</h3>
+<p>In addition to working only with only rivers that are entirely inside our
+study area, we will also work with huc12s that are within our area only. This
+will get rid of some areas on the southern extent of our mining detectino area
+that are in the HUC4 region. There is relatively little mining in this area, but
+this code could be used to produce the huc 4 percent mining if so desired.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="methods.html#cb10-1"></a>huc_<span class="dv">12</span> &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&#39;data/in/wbd/Shape/WBDHU12.shp&#39;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-2"><a href="methods.html#cb10-2"></a><span class="st">  </span><span class="kw">st_transform</span>(<span class="dv">2163</span>)</span>
+<span id="cb10-3"><a href="methods.html#cb10-3"></a></span>
+<span id="cb10-4"><a href="methods.html#cb10-4"></a></span>
+<span id="cb10-5"><a href="methods.html#cb10-5"></a>huc4 &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&#39;data/in/wbd/Shape/WBDHU4.shp&#39;</span>)</span>
+<span id="cb10-6"><a href="methods.html#cb10-6"></a></span>
+<span id="cb10-7"><a href="methods.html#cb10-7"></a></span>
+<span id="cb10-8"><a href="methods.html#cb10-8"></a>study_12s &lt;-<span class="st"> </span>huc_<span class="dv">12</span> <span class="op">%&gt;%</span></span>
+<span id="cb10-9"><a href="methods.html#cb10-9"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">st_within</span>(.,</span>
+<span id="cb10-10"><a href="methods.html#cb10-10"></a>                   c_area  <span class="op">%&gt;%</span><span class="st"> </span><span class="co">#In case hucs are on border</span></span>
+<span id="cb10-11"><a href="methods.html#cb10-11"></a><span class="st">                     </span><span class="kw">st_buffer</span>(<span class="dv">50</span>),</span>
+<span id="cb10-12"><a href="methods.html#cb10-12"></a>                   <span class="dt">sparse =</span> F)) <span class="op">%&gt;%</span></span>
+<span id="cb10-13"><a href="methods.html#cb10-13"></a><span class="st">  </span><span class="co">## In the southwestern and ester most corner of the region, there are three huc12s</span></span>
+<span id="cb10-14"><a href="methods.html#cb10-14"></a><span class="co"># That are discontinuous with the rest of the study region. We will explicitly </span></span>
+<span id="cb10-15"><a href="methods.html#cb10-15"></a><span class="co">#remove those here. </span></span>
+<span id="cb10-16"><a href="methods.html#cb10-16"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span>huc12 <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;051301080301&#39;</span>,</span>
+<span id="cb10-17"><a href="methods.html#cb10-17"></a>                       <span class="st">&#39;051301080703&#39;</span>,</span>
+<span id="cb10-18"><a href="methods.html#cb10-18"></a>                       <span class="st">&#39;051301080904&#39;</span>,</span>
+<span id="cb10-19"><a href="methods.html#cb10-19"></a>                       <span class="st">&#39;050500020401&#39;</span>))</span>
+<span id="cb10-20"><a href="methods.html#cb10-20"></a></span>
+<span id="cb10-21"><a href="methods.html#cb10-21"></a></span>
+<span id="cb10-22"><a href="methods.html#cb10-22"></a></span>
+<span id="cb10-23"><a href="methods.html#cb10-23"></a></span>
+<span id="cb10-24"><a href="methods.html#cb10-24"></a></span>
+<span id="cb10-25"><a href="methods.html#cb10-25"></a></span>
+<span id="cb10-26"><a href="methods.html#cb10-26"></a><span class="co">#Simplify for display</span></span>
+<span id="cb10-27"><a href="methods.html#cb10-27"></a>visual_12s &lt;-<span class="st"> </span>study_12s <span class="op">%&gt;%</span></span>
+<span id="cb10-28"><a href="methods.html#cb10-28"></a><span class="st">  </span><span class="kw">st_simplify</span>(.,<span class="dt">dTolerance =</span> <span class="dv">2000</span>)</span>
+<span id="cb10-29"><a href="methods.html#cb10-29"></a></span>
+<span id="cb10-30"><a href="methods.html#cb10-30"></a><span class="kw">mapview</span>(c_area, <span class="dt">layer.name =</span> <span class="st">&#39;Original Study Area&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-31"><a href="methods.html#cb10-31"></a><span class="kw">mapview</span>(visual_12s, <span class="dt">col.regions =</span> <span class="st">&#39;red&#39;</span>,<span class="dt">layer.name =</span> <span class="st">&#39;Whole HUC 12s&#39;</span>) </span>
+<span id="cb10-32"><a href="methods.html#cb10-32"></a></span>
+<span id="cb10-33"><a href="methods.html#cb10-33"></a><span class="co">#Save the new study area</span></span>
+<span id="cb10-34"><a href="methods.html#cb10-34"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&#39;data/out/whole_area.gpkg&#39;</span>)){</span>
+<span id="cb10-35"><a href="methods.html#cb10-35"></a>  new_area &lt;-<span class="st"> </span>study_12s <span class="op">%&gt;%</span></span>
+<span id="cb10-36"><a href="methods.html#cb10-36"></a><span class="st">    </span><span class="kw">summarize</span>() <span class="op">%&gt;%</span></span>
+<span id="cb10-37"><a href="methods.html#cb10-37"></a><span class="st">    </span><span class="co">#Buffer this area by 30m to make sure we capture top of ridgeline</span></span>
+<span id="cb10-38"><a href="methods.html#cb10-38"></a><span class="st">    </span><span class="co">#from hydrodems</span></span>
+<span id="cb10-39"><a href="methods.html#cb10-39"></a><span class="st">    </span><span class="kw">st_buffer</span>(<span class="dv">30</span>)</span>
+<span id="cb10-40"><a href="methods.html#cb10-40"></a>  <span class="kw">st_write</span>(new_area,<span class="st">&#39;data/out/whole_area.gpkg&#39;</span>,<span class="dt">delete_layer =</span> T)</span>
+<span id="cb10-41"><a href="methods.html#cb10-41"></a>}</span></code></pre></div>
+</div>
+<div id="trim-all-analysis-rasters-to-new-study-area-extent" class="section level3">
+<h3><span class="header-section-number">1.2.3</span> Trim all analysis rasters to new study area extent</h3>
+<p>We have a series of raster’s that we downloaded and merged upstream (flow accumulation
+elevation, cumulative mining). These all need to be trimmed to our new study area.
+We will use</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="methods.html#cb11-1"></a><span class="co">#Read in as a stars object, because terra doesn&#39;t play nice with sf yet for </span></span>
+<span id="cb11-2"><a href="methods.html#cb11-2"></a><span class="co">#reprojecting. </span></span>
+<span id="cb11-3"><a href="methods.html#cb11-3"></a></span>
+<span id="cb11-4"><a href="methods.html#cb11-4"></a></span>
+<span id="cb11-5"><a href="methods.html#cb11-5"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&#39;data/out/elev_study.tif&#39;</span>)){</span>
+<span id="cb11-6"><a href="methods.html#cb11-6"></a>  <span class="co">#Transform everything to the elev.tif projection (this takes a while)</span></span>
+<span id="cb11-7"><a href="methods.html#cb11-7"></a>  elev &lt;-<span class="st"> </span><span class="kw">rast</span>(<span class="st">&#39;data/in/nhd_dem.tif&#39;</span>) </span>
+<span id="cb11-8"><a href="methods.html#cb11-8"></a>  </span>
+<span id="cb11-9"><a href="methods.html#cb11-9"></a>  cume &lt;-<span class="st"> </span><span class="kw">rast</span>(<span class="st">&#39;data/in/cume.tif&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb11-10"><a href="methods.html#cb11-10"></a><span class="st">    </span><span class="kw">project</span>(.,elev, <span class="dt">method =</span> <span class="st">&#39;near&#39;</span>, <span class="dt">mask =</span> T)</span>
+<span id="cb11-11"><a href="methods.html#cb11-11"></a>  </span>
+<span id="cb11-12"><a href="methods.html#cb11-12"></a>  <span class="co">#Fix an issue from the reprojection (some cells = -Inf)</span></span>
+<span id="cb11-13"><a href="methods.html#cb11-13"></a>  cume[cume<span class="op">&lt;</span><span class="st"> </span><span class="dv">1984</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb11-14"><a href="methods.html#cb11-14"></a>  </span>
+<span id="cb11-15"><a href="methods.html#cb11-15"></a>  <span class="co">#Change all within bound NAs to 0s (mass flux fix?)</span></span>
+<span id="cb11-16"><a href="methods.html#cb11-16"></a>  cume[<span class="kw">is.na</span>(cume)] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb11-17"><a href="methods.html#cb11-17"></a>  </span>
+<span id="cb11-18"><a href="methods.html#cb11-18"></a>  fac &lt;-<span class="st"> </span><span class="kw">rast</span>(<span class="st">&#39;data/in/nhd_fac.tif&#39;</span>)</span>
+<span id="cb11-19"><a href="methods.html#cb11-19"></a>  </span>
+<span id="cb11-20"><a href="methods.html#cb11-20"></a>  <span class="co">#Trim to new huc5 study area</span></span>
+<span id="cb11-21"><a href="methods.html#cb11-21"></a>  new_area &lt;-<span class="st"> </span><span class="kw">vect</span>(<span class="st">&#39;data/out/whole_area.gpkg&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb11-22"><a href="methods.html#cb11-22"></a><span class="st">    </span><span class="kw">project</span>(.,<span class="kw">crs</span>(elev))</span>
+<span id="cb11-23"><a href="methods.html#cb11-23"></a>  </span>
+<span id="cb11-24"><a href="methods.html#cb11-24"></a>  <span class="co">#Crop and mask those rasters</span></span>
+<span id="cb11-25"><a href="methods.html#cb11-25"></a>  elev_study &lt;-<span class="st"> </span><span class="kw">crop</span>(elev, new_area) <span class="op">%&gt;%</span></span>
+<span id="cb11-26"><a href="methods.html#cb11-26"></a><span class="st">    </span><span class="kw">mask</span>(.,new_area)</span>
+<span id="cb11-27"><a href="methods.html#cb11-27"></a>  </span>
+<span id="cb11-28"><a href="methods.html#cb11-28"></a>  cume_study &lt;-<span class="st"> </span><span class="kw">crop</span>(cume, new_area) <span class="op">%&gt;%</span></span>
+<span id="cb11-29"><a href="methods.html#cb11-29"></a><span class="st">    </span><span class="kw">mask</span>(.,new_area)</span>
+<span id="cb11-30"><a href="methods.html#cb11-30"></a>  </span>
+<span id="cb11-31"><a href="methods.html#cb11-31"></a>  fac_study &lt;-<span class="st"> </span><span class="kw">crop</span>(fac, new_area) <span class="op">%&gt;%</span></span>
+<span id="cb11-32"><a href="methods.html#cb11-32"></a><span class="st">    </span><span class="kw">mask</span>(., new_area)</span>
+<span id="cb11-33"><a href="methods.html#cb11-33"></a>  </span>
+<span id="cb11-34"><a href="methods.html#cb11-34"></a>  <span class="co">#Save the data</span></span>
+<span id="cb11-35"><a href="methods.html#cb11-35"></a>  <span class="kw">writeRaster</span>(elev_study, <span class="st">&#39;data/out/elev_study.tif&#39;</span>, <span class="dt">overwrite =</span> T)</span>
+<span id="cb11-36"><a href="methods.html#cb11-36"></a>  <span class="kw">writeRaster</span>(cume_study, <span class="st">&#39;data/out/cume_study.tif&#39;</span>,<span class="dt">overwrite =</span> T)</span>
+<span id="cb11-37"><a href="methods.html#cb11-37"></a>  <span class="kw">writeRaster</span>(fac_study, <span class="st">&#39;data/out/fac_study.tif&#39;</span>, <span class="dt">overwrite =</span> T)</span>
+<span id="cb11-38"><a href="methods.html#cb11-38"></a>}</span></code></pre></div>
+</div>
+<div id="first-mining-year-for-boone-county" class="section level3">
+<h3><span class="header-section-number">1.2.4</span> First Mining Year for Boone County</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="methods.html#cb12-1"></a>elev &lt;-<span class="st"> </span><span class="kw">rast</span>(<span class="st">&#39;data/out/elev_study.tif&#39;</span>)</span>
+<span id="cb12-2"><a href="methods.html#cb12-2"></a></span>
+<span id="cb12-3"><a href="methods.html#cb12-3"></a>cume &lt;-<span class="st"> </span><span class="kw">rast</span>(<span class="st">&#39;data/out/cume_study.tif&#39;</span>)</span>
+<span id="cb12-4"><a href="methods.html#cb12-4"></a></span>
+<span id="cb12-5"><a href="methods.html#cb12-5"></a></span>
+<span id="cb12-6"><a href="methods.html#cb12-6"></a>boone &lt;-<span class="st"> </span><span class="kw">us_counties</span>(<span class="dt">states=</span><span class="st">&#39;West Virginia&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb12-7"><a href="methods.html#cb12-7"></a><span class="st">  </span><span class="kw">filter</span>(name <span class="op">==</span><span class="st"> &#39;Boone&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb12-8"><a href="methods.html#cb12-8"></a><span class="st">  </span><span class="co">#Match projections to mining data</span></span>
+<span id="cb12-9"><a href="methods.html#cb12-9"></a><span class="st">  </span><span class="kw">st_transform</span>(<span class="kw">crs</span>(cume))</span>
+<span id="cb12-10"><a href="methods.html#cb12-10"></a></span>
+<span id="cb12-11"><a href="methods.html#cb12-11"></a><span class="co">#Crop to boone</span></span>
+<span id="cb12-12"><a href="methods.html#cb12-12"></a>cume_boone &lt;-<span class="st"> </span><span class="kw">crop</span>(cume,boone) </span>
+<span id="cb12-13"><a href="methods.html#cb12-13"></a>cume_boone[cume_boone <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb12-14"><a href="methods.html#cb12-14"></a></span>
+<span id="cb12-15"><a href="methods.html#cb12-15"></a>elev_boone &lt;-<span class="st"> </span><span class="kw">crop</span>(elev,boone)</span>
+<span id="cb12-16"><a href="methods.html#cb12-16"></a></span>
+<span id="cb12-17"><a href="methods.html#cb12-17"></a></span>
+<span id="cb12-18"><a href="methods.html#cb12-18"></a><span class="co">#Terra doesn&#39;t work with tmap (yet presumably)</span></span>
+<span id="cb12-19"><a href="methods.html#cb12-19"></a><span class="co">#So we have to use base!</span></span>
+<span id="cb12-20"><a href="methods.html#cb12-20"></a></span>
+<span id="cb12-21"><a href="methods.html#cb12-21"></a></span>
+<span id="cb12-22"><a href="methods.html#cb12-22"></a></span>
+<span id="cb12-23"><a href="methods.html#cb12-23"></a><span class="co">#OMG HCL.colors is nice</span></span>
+<span id="cb12-24"><a href="methods.html#cb12-24"></a><span class="kw">plot</span>(cume_boone,<span class="dt">col=</span><span class="kw">hcl.colors</span>(<span class="dv">30</span>,<span class="st">&#39;viridis&#39;</span>),<span class="dt">frame=</span>F,<span class="dt">axes=</span>F)</span>
+<span id="cb12-25"><a href="methods.html#cb12-25"></a><span class="kw">plot</span>(elev_boone,<span class="dt">col=</span><span class="kw">hcl.colors</span>(<span class="dv">20</span>,<span class="st">&#39;Grays&#39;</span>),<span class="dt">add=</span>T,<span class="dt">frame=</span>F,<span class="dt">axes=</span>F, <span class="dt">legend =</span> F)</span>
+<span id="cb12-26"><a href="methods.html#cb12-26"></a><span class="kw">plot</span>(cume_boone,<span class="dt">col=</span><span class="kw">hcl.colors</span>(<span class="dv">30</span>,<span class="st">&#39;viridis&#39;</span>),<span class="dt">add=</span>T, <span class="dt">legend =</span> F)</span></code></pre></div>
+</div>
+<div id="cumulative-mining-boone-county-1990" class="section level3">
+<h3><span class="header-section-number">1.2.5</span> Cumulative mining Boone County 1990</h3>
+<p>Just an example of how we are creating these rasters and what they will look
+like.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="methods.html#cb13-1"></a><span class="co">#Set all values above a year value to NA and all values before or equal to 1990 to 1</span></span>
+<span id="cb13-2"><a href="methods.html#cb13-2"></a></span>
+<span id="cb13-3"><a href="methods.html#cb13-3"></a>cut_year &lt;-<span class="st"> </span><span class="dv">2015</span></span>
+<span id="cb13-4"><a href="methods.html#cb13-4"></a>rcl &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(cut_year <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,<span class="dv">2016</span>,<span class="ot">NA</span>,</span>
+<span id="cb13-5"><a href="methods.html#cb13-5"></a>              <span class="dv">1984</span>,cut_year,cut_year),<span class="dt">nrow=</span><span class="dv">2</span>,<span class="dt">ncol=</span><span class="dv">3</span>,<span class="dt">byrow=</span>T)</span>
+<span id="cb13-6"><a href="methods.html#cb13-6"></a></span>
+<span id="cb13-7"><a href="methods.html#cb13-7"></a></span>
+<span id="cb13-8"><a href="methods.html#cb13-8"></a>cume_cut &lt;-<span class="st"> </span><span class="kw">classify</span>(cume_boone,rcl,<span class="dt">lowest =</span> T)</span>
+<span id="cb13-9"><a href="methods.html#cb13-9"></a></span>
+<span id="cb13-10"><a href="methods.html#cb13-10"></a><span class="kw">plot</span>(elev_boone,<span class="dt">col=</span><span class="kw">hcl.colors</span>(<span class="dv">20</span>,<span class="st">&#39;Grays&#39;</span>),<span class="dt">frame=</span>F,<span class="dt">axes=</span>F)</span>
+<span id="cb13-11"><a href="methods.html#cb13-11"></a><span class="kw">plot</span>(cume_cut,<span class="dt">col=</span><span class="st">&#39;red&#39;</span>,<span class="dt">add=</span>T,<span class="dt">useRaster=</span>T, <span class="dt">legend =</span> F)</span></code></pre></div>
+</div>
+<div id="animated-loop-showing-how-this-looks-for-all-years" class="section level3">
+<h3><span class="header-section-number">1.2.6</span> Animated loop showing how this looks for all years</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="methods.html#cb14-1"></a>cut_years =<span class="st"> </span><span class="dv">1984</span><span class="op">:</span><span class="dv">2015</span></span>
+<span id="cb14-2"><a href="methods.html#cb14-2"></a></span>
+<span id="cb14-3"><a href="methods.html#cb14-3"></a></span>
+<span id="cb14-4"><a href="methods.html#cb14-4"></a></span>
+<span id="cb14-5"><a href="methods.html#cb14-5"></a></span>
+<span id="cb14-6"><a href="methods.html#cb14-6"></a><span class="cf">for</span>(i <span class="cf">in</span> cut_years){</span>
+<span id="cb14-7"><a href="methods.html#cb14-7"></a>  </span>
+<span id="cb14-8"><a href="methods.html#cb14-8"></a>  rcl &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(i<span class="op">+</span><span class="dv">1</span>,<span class="dv">2016</span>,<span class="ot">NA</span>,</span>
+<span id="cb14-9"><a href="methods.html#cb14-9"></a>            <span class="dv">1984</span>,i,<span class="dv">1</span>),<span class="dt">nrow=</span><span class="dv">2</span>,<span class="dt">ncol=</span><span class="dv">3</span>,<span class="dt">byrow=</span>T)</span>
+<span id="cb14-10"><a href="methods.html#cb14-10"></a>  </span>
+<span id="cb14-11"><a href="methods.html#cb14-11"></a>  cume_cuts &lt;-<span class="st"> </span>terra<span class="op">::</span><span class="kw">classify</span>(cume_boone,rcl, <span class="dt">lowest =</span> T)</span>
+<span id="cb14-12"><a href="methods.html#cb14-12"></a>  </span>
+<span id="cb14-13"><a href="methods.html#cb14-13"></a>  </span>
+<span id="cb14-14"><a href="methods.html#cb14-14"></a>  </span>
+<span id="cb14-15"><a href="methods.html#cb14-15"></a>terra<span class="op">::</span><span class="kw">plot</span>(elev_boone,<span class="dt">col=</span><span class="kw">hcl.colors</span>(<span class="dv">20</span>,<span class="st">&#39;Grays&#39;</span>),</span>
+<span id="cb14-16"><a href="methods.html#cb14-16"></a>       <span class="dt">add=</span>F,<span class="dt">frame=</span>F,<span class="dt">axes=</span>F,<span class="dt">main=</span><span class="kw">paste</span>(<span class="st">&#39;Cumulative Mining Growth&#39;</span>,i))</span>
+<span id="cb14-17"><a href="methods.html#cb14-17"></a>  terra<span class="op">::</span><span class="kw">plot</span>(cume_cuts,<span class="dt">col=</span><span class="st">&#39;red&#39;</span>,<span class="dt">add=</span>T,<span class="dt">leg.shrink=</span>.<span class="dv">3</span>,</span>
+<span id="cb14-18"><a href="methods.html#cb14-18"></a>              <span class="dt">legend =</span> F)</span>
+<span id="cb14-19"><a href="methods.html#cb14-19"></a></span>
+<span id="cb14-20"><a href="methods.html#cb14-20"></a>}</span></code></pre></div>
+</div>
+<div id="filtering-and-outputting-cumulative-mining-rasters-1984-2015" class="section level3">
+<h3><span class="header-section-number">1.2.7</span> Filtering and outputting cumulative mining rasters 1984-2015</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="methods.html#cb15-1"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">dir.exists</span>(<span class="st">&#39;data/out/annual_cumes&#39;</span>)){</span>
+<span id="cb15-2"><a href="methods.html#cb15-2"></a>  <span class="kw">dir.create</span>(<span class="st">&#39;data/out/annual_cumes&#39;</span>)</span>
+<span id="cb15-3"><a href="methods.html#cb15-3"></a>}</span>
+<span id="cb15-4"><a href="methods.html#cb15-4"></a></span>
+<span id="cb15-5"><a href="methods.html#cb15-5"></a><span class="co">#Years for cume data</span></span>
+<span id="cb15-6"><a href="methods.html#cb15-6"></a>years &lt;-<span class="st"> </span><span class="dv">1984</span><span class="op">:</span><span class="dv">2015</span></span>
+<span id="cb15-7"><a href="methods.html#cb15-7"></a></span>
+<span id="cb15-8"><a href="methods.html#cb15-8"></a>year_files &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;data/out/annual_cumes/&#39;</span>,years,<span class="st">&#39;.tif&#39;</span>)</span>
+<span id="cb15-9"><a href="methods.html#cb15-9"></a></span>
+<span id="cb15-10"><a href="methods.html#cb15-10"></a><span class="co">#Rerun? </span></span>
+<span id="cb15-11"><a href="methods.html#cb15-11"></a>cumer_run &lt;-<span class="st"> </span><span class="op">!</span><span class="kw">all</span>(<span class="kw">file.exists</span>(year_files))</span>
+<span id="cb15-12"><a href="methods.html#cb15-12"></a></span>
+<span id="cb15-13"><a href="methods.html#cb15-13"></a></span>
+<span id="cb15-14"><a href="methods.html#cb15-14"></a><span class="co"># Making a function for reclassifying Matrix for every year. </span></span>
+<span id="cb15-15"><a href="methods.html#cb15-15"></a></span>
+<span id="cb15-16"><a href="methods.html#cb15-16"></a>mine_cumer &lt;-<span class="st"> </span><span class="cf">function</span>(year){</span>
+<span id="cb15-17"><a href="methods.html#cb15-17"></a>  <span class="co">#Reclassify matrix</span></span>
+<span id="cb15-18"><a href="methods.html#cb15-18"></a>  rcl &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(year<span class="op">+</span><span class="dv">1</span>,<span class="ot">Inf</span>,<span class="dv">0</span>,</span>
+<span id="cb15-19"><a href="methods.html#cb15-19"></a>              <span class="dv">1984</span>,year<span class="op">+</span><span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">nrow=</span><span class="dv">2</span>,<span class="dt">ncol=</span><span class="dv">3</span>,<span class="dt">byrow=</span>T)</span>
+<span id="cb15-20"><a href="methods.html#cb15-20"></a>  </span>
+<span id="cb15-21"><a href="methods.html#cb15-21"></a>  </span>
+<span id="cb15-22"><a href="methods.html#cb15-22"></a>  <span class="co">#Reclassify raster</span></span>
+<span id="cb15-23"><a href="methods.html#cb15-23"></a>  cume_cut &lt;-<span class="st"> </span><span class="kw">classify</span>(cume,rcl, <span class="dt">lowest =</span> T)</span>
+<span id="cb15-24"><a href="methods.html#cb15-24"></a>  </span>
+<span id="cb15-25"><a href="methods.html#cb15-25"></a>  <span class="co">#write it out</span></span>
+<span id="cb15-26"><a href="methods.html#cb15-26"></a>  file =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;data/out/annual_cumes/&#39;</span>,year,<span class="st">&#39;.tif&#39;</span>)</span>
+<span id="cb15-27"><a href="methods.html#cb15-27"></a>  terra<span class="op">::</span><span class="kw">writeRaster</span>(cume_cut,<span class="dt">filename=</span>file,<span class="dt">overwrite=</span>T)</span>
+<span id="cb15-28"><a href="methods.html#cb15-28"></a>}</span>
+<span id="cb15-29"><a href="methods.html#cb15-29"></a></span>
+<span id="cb15-30"><a href="methods.html#cb15-30"></a><span class="co">#THis is why all the TERRA stuff is worth it about 100X faster than</span></span>
+<span id="cb15-31"><a href="methods.html#cb15-31"></a><span class="co">#raster and 20X faster than using futures and furrr mapping</span></span>
+<span id="cb15-32"><a href="methods.html#cb15-32"></a><span class="cf">if</span>(cumer_run){</span>
+<span id="cb15-33"><a href="methods.html#cb15-33"></a><span class="kw">map</span>(<span class="dv">2015</span>,mine_cumer)</span>
+<span id="cb15-34"><a href="methods.html#cb15-34"></a>}</span></code></pre></div>
+</div>
+<div id="final-whitebox-preparation" class="section level3">
+<h3><span class="header-section-number">1.2.8</span> Final whitebox preparation</h3>
+<p>The primary <code>whitebox</code> function we will be using to generate our cumulative
+mining maps will be <code>D8MassFlux</code>. This tool takes four different rasters</p>
+<ul>
+<li><p>A DEM (we will use NHD hydrologically conditioned DEM)</p></li>
+<li><p>A loading raster (which will be our annual cumulative mining rasters)</p></li>
+<li><p>An efficiency raster which we will set to 1 (% mining is not mitigated as you go downstream)</p></li>
+<li><p>An absorption raster which we will set to zero (nothing interrupts the flow of mining down the network)</p></li>
+</ul>
+<p>We will make the efficiency and absorption raster’s by reading in our cumulative
+mining dataset and setting all values to zero.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="methods.html#cb16-1"></a>area &lt;-<span class="st"> </span><span class="kw">vect</span>(<span class="st">&#39;data/out/whole_area.gpkg&#39;</span>)</span>
+<span id="cb16-2"><a href="methods.html#cb16-2"></a></span>
+<span id="cb16-3"><a href="methods.html#cb16-3"></a>zero &lt;-<span class="st"> </span><span class="kw">rast</span>(<span class="st">&#39;data/out/cume_study.tif&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb16-4"><a href="methods.html#cb16-4"></a><span class="st">  </span><span class="kw">setValues</span>(<span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb16-5"><a href="methods.html#cb16-5"></a><span class="st">  </span><span class="kw">mask</span>(.,area)</span>
+<span id="cb16-6"><a href="methods.html#cb16-6"></a></span>
+<span id="cb16-7"><a href="methods.html#cb16-7"></a></span>
+<span id="cb16-8"><a href="methods.html#cb16-8"></a></span>
+<span id="cb16-9"><a href="methods.html#cb16-9"></a>one &lt;-<span class="st"> </span><span class="kw">rast</span>(<span class="st">&#39;data/out/cume_study.tif&#39;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb16-10"><a href="methods.html#cb16-10"></a><span class="st">  </span><span class="kw">setValues</span>(<span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb16-11"><a href="methods.html#cb16-11"></a><span class="st">  </span><span class="kw">mask</span>(.,area)</span>
+<span id="cb16-12"><a href="methods.html#cb16-12"></a></span>
+<span id="cb16-13"><a href="methods.html#cb16-13"></a><span class="kw">writeRaster</span>(zero,<span class="st">&#39;data/out/zero.tif&#39;</span>)</span>
+<span id="cb16-14"><a href="methods.html#cb16-14"></a><span class="kw">writeRaster</span>(one,<span class="st">&#39;data/out/one.tif&#39;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="data-analysis" class="section level2">
+<h2><span class="header-section-number">1.3</span> Data Analysis</h2>
+<div id="breach" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Breach</h3>
+<p>DEMs got issues sometimes,</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="methods.html#cb17-1"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">dir.exists</span>(<span class="st">&#39;data/out/wbt_outputs/annual_accumed&#39;</span>)){</span>
+<span id="cb17-2"><a href="methods.html#cb17-2"></a>  <span class="kw">dir.create</span>(<span class="st">&#39;data/out/wbt_outputs/annual_accumed&#39;</span>, <span class="dt">recursive =</span> T)</span>
+<span id="cb17-3"><a href="methods.html#cb17-3"></a>}</span>
+<span id="cb17-4"><a href="methods.html#cb17-4"></a></span>
+<span id="cb17-5"><a href="methods.html#cb17-5"></a><span class="kw">writeRaster</span>(elev_boone,<span class="st">&#39;data/out/elev_boone.tif&#39;</span>)</span>
+<span id="cb17-6"><a href="methods.html#cb17-6"></a></span>
+<span id="cb17-7"><a href="methods.html#cb17-7"></a><span class="co">#Dist needs tuning. Looked wonky until set at 20000</span></span>
+<span id="cb17-8"><a href="methods.html#cb17-8"></a><span class="kw">wbt_breach_depressions_least_cost</span>(<span class="st">&#39;data/out/elev_study.tif&#39;</span>,</span>
+<span id="cb17-9"><a href="methods.html#cb17-9"></a>                             <span class="st">&#39;data/out/wbt_outputs/breached.tif&#39;</span>,</span>
+<span id="cb17-10"><a href="methods.html#cb17-10"></a>                             <span class="dt">dist =</span> <span class="dv">20000</span>,</span>
+<span id="cb17-11"><a href="methods.html#cb17-11"></a>                             <span class="dt">min_dist =</span> T,</span>
+<span id="cb17-12"><a href="methods.html#cb17-12"></a>                             <span class="dt">fill =</span> T)</span></code></pre></div>
+</div>
+<div id="targetted-flow-accumulation" class="section level3">
+<h3><span class="header-section-number">1.3.2</span> Targetted flow accumulation</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="methods.html#cb18-1"></a>loading &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="st">&#39;data/out/annual_cumes&#39;</span>,<span class="dt">full.names =</span> T)</span>
+<span id="cb18-2"><a href="methods.html#cb18-2"></a>dem &lt;-<span class="st"> &#39;data/out/wbt_outputs/breached.tif&#39;</span></span>
+<span id="cb18-3"><a href="methods.html#cb18-3"></a>absorption &lt;-<span class="st"> &#39;data/out/zero.tif&#39;</span></span>
+<span id="cb18-4"><a href="methods.html#cb18-4"></a>efficiency &lt;-<span class="st"> &#39;data/out/one.tif&#39;</span></span>
+<span id="cb18-5"><a href="methods.html#cb18-5"></a></span>
+<span id="cb18-6"><a href="methods.html#cb18-6"></a></span>
+<span id="cb18-7"><a href="methods.html#cb18-7"></a></span>
+<span id="cb18-8"><a href="methods.html#cb18-8"></a>accumulated  &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&#39;annual_cumes&#39;</span>,<span class="st">&#39;wbt_outputs/annual_accumed&#39;</span>, loading)</span>
+<span id="cb18-9"><a href="methods.html#cb18-9"></a></span>
+<span id="cb18-10"><a href="methods.html#cb18-10"></a><span class="co">#Loop over each year</span></span>
+<span id="cb18-11"><a href="methods.html#cb18-11"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">all</span>(<span class="kw">file.exists</span>(accumulated))){</span>
+<span id="cb18-12"><a href="methods.html#cb18-12"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(years)){</span>
+<span id="cb18-13"><a href="methods.html#cb18-13"></a>    <span class="kw">wbt_d8_mass_flux</span>(<span class="dt">dem =</span> dem,</span>
+<span id="cb18-14"><a href="methods.html#cb18-14"></a>                     <span class="dt">loading =</span> loading[i],</span>
+<span id="cb18-15"><a href="methods.html#cb18-15"></a>                     <span class="dt">efficiency =</span> efficiency,</span>
+<span id="cb18-16"><a href="methods.html#cb18-16"></a>                     <span class="dt">absorption =</span> absorption,</span>
+<span id="cb18-17"><a href="methods.html#cb18-17"></a>                     <span class="dt">output =</span> accumulated[i],</span>
+<span id="cb18-18"><a href="methods.html#cb18-18"></a>                     <span class="dt">verbose_mode =</span> T)</span>
+<span id="cb18-19"><a href="methods.html#cb18-19"></a>  }</span>
+<span id="cb18-20"><a href="methods.html#cb18-20"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="methods.html#cb19-1"></a>boone_check &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="st">&#39;data/out/wbt_outputs/annual_accumed/2015.tif&#39;</span>) </span>
+<span id="cb19-2"><a href="methods.html#cb19-2"></a></span>
+<span id="cb19-3"><a href="methods.html#cb19-3"></a>boone_l &lt;-<span class="st"> </span><span class="kw">log10</span>(boone_check)</span></code></pre></div>
+
+<div id="refs" class="references">
+<div>
+<p>Bernhardt, Emily S, Brian D Lutz, Ryan S King, John P Fay, Catherine E Carter, Ashley M Helton, David Campagna, and John Amos. 2012. “How many mountains can we mine? Assessing the regional degradation of central appalachian rivers by surface coal mining.” <em>Environmental Science &amp; Technology</em> 46 (15): 8115–22. <a href="https://doi.org/10.1021/es301144q">https://doi.org/10.1021/es301144q</a>.</p>
+</div>
+<div>
+<p>Bernhardt, Emily S, and Margaret a Palmer. 2011. “The environmental costs of mountaintop mining valley fill operations for aquatic ecosystems of the Central Appalachians.” <em>Annals of the New York Academy of Sciences</em> 1223 (March): 39–57. <a href="https://doi.org/10.1111/j.1749-6632.2011.05986.x">https://doi.org/10.1111/j.1749-6632.2011.05986.x</a>.</p>
+</div>
+<div>
+<p>Hitt, Nathaniel P, and Douglas B Chambers. 2014. “Temporal changes in taxonomic and functional diversity of fish assemblages downstream from mountaintop mining.” <em>Freshwater Science</em> 33 (3): 915–26. <a href="https://doi.org/10.1086/676997.">https://doi.org/10.1086/676997.</a></p>
+</div>
+<div>
+<p>Lindberg, T. Ty, Emily S. Bernhardt, Raven Bier, A. M. Helton, R. Brittany Merola, Avner Vengosh, and Richard T. Di Giulio. 2011. “Cumulative impacts of mountaintop mining on an Appalachian watershed.” <em>Proceedings of the National Academy of Sciences of the United States of America</em> 108 (52): 20929–34. <a href="https://doi.org/10.1073/pnas.1112381108">https://doi.org/10.1073/pnas.1112381108</a>.</p>
+</div>
+<div>
+<p>Pericak, Andrew A., Christian J. Thomas, David A. Kroodsma, Matthew F. Wasson, Matthew R. V. Ross, Nicholas E. Clinton, David J. Campagna, Yolandita Franklin, Emily S. Bernhardt, and John F. Amos. 2018. “Mapping the yearly extent of surface coal mining in central appalachia using landsat and google earth engine.” <em>PLoS ONE</em> 13 (7): 1–15. <a href="https://doi.org/10.1371/journal.pone.0197758">https://doi.org/10.1371/journal.pone.0197758</a>.</p>
+</div>
+<div>
+<p>Ross, Matthew R. V., Fabian Nippgen, Brooke A. Hassett, Brian L. McGlynn, and Emily S. Bernhardt. 2018. “Pyrite oxidation drives exceptionally high weathering rates and geologic CO &lt;sub&gt;2&lt;/sub&gt; release in mountaintop-mined landscapes.” <em>Global Biogeochemical Cycles</em> 32 (8): 1182–94. <a href="https://doi.org/10.1029/2017GB005798">https://doi.org/10.1029/2017GB005798</a>.</p>
+</div>
+<div>
+<p>Ross, M. R. V. Matthew R. V. V, Brian L. B. L. McGlynn, and Emily S. E. S. Bernhardt. 2016. “Deep impact: effects of mountaintop mining on surface topography, bedrock structure, and downstream waters.” <em>Environmental Science &amp; Technology</em> 50 (4): 2064–74. <a href="https://doi.org/10.1021/acs.est.5b04532">https://doi.org/10.1021/acs.est.5b04532</a>.</p>
+</div>
+<div>
+<p>Voss, Kristofor A., and Emily S. Bernhardt. 2017. “Effects of mountaintop removal coal mining on the diversity and secondary productivity of Appalachian rivers.” <em>Limnology and Oceanography</em>. <a href="https://doi.org/10.1002/lno.10531">https://doi.org/10.1002/lno.10531</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
