@@ -24,6 +24,7 @@ library(furrr) #Parallel mapping
 library(animation)
 library(terra) # much faster raster
 library(nhdplusTools) #Navigate america's rivers
+library(USAboundaries) #USA states and counties
 knitr::opts_chunk$set(echo = TRUE,eval = FALSE,
                       cache = TRUE, warning = FALSE,
                       message = FALSE)
@@ -55,14 +56,15 @@ download.file('https://ndownloader.figshare.com/articles/6253901?private_link=7a
 unzip(area_file, exdir = 'data/in/study_area')
 }
 
-
+co <- us_boundaries(type = "state", states = "Colorado")
+plot(st_geometry(co))
 ```
 
 ### Watershed boundaries
 
 
 Our study area is almost entirelyg within the 05 HUC 2 watershed basin from the USGS.
-We can download these shapefiles directly from the USGS [here](https://catalog.data.gov/dataset/usgs-national-watershed-boundary-dataset-wbd-downloadable-data-collection-national-geospatial-) 
+We can download these shapefiles directly from the USGS [here](https://catalog.data.gov/dataset/usgs-national-watershed-boundary-dataset-wbd-downloadable-data-collection-national-geospatial-) To select your watershed click on the amazon cloud link to get the appropriate URL. IF you are ansure of your HUC here is a [map](https://www.usgs.gov/media/images/watershed-boundary-dataset-subregions-map)
 
 
 ```{r}
@@ -71,7 +73,7 @@ We can download these shapefiles directly from the USGS [here](https://catalog.d
 wbd_file <- 'data/in/wbd_file.zip'
 
 if(!file.exists(wbd_file)){
-download.file('https://prd-tnm.s3.amazonaws.com/StagedProducts/Hydrography/WBD/HU2/Shape/WBD_05_HU2_Shape.zip',
+download.file('https://prd-tnm.s3.amazonaws.com/StagedProducts/Hydrography/WBD/HU2/Shape/WBD_10_HU2_Shape.zip',
               destfile = wbd_file, method = 'libcurl', mode = 'wb')
 
 unzip(wbd_file, exdir = 'data/in/wbd')
@@ -91,14 +93,14 @@ package.
 ```{r}
 
 
-huc4_list <- c('0510','0509','0507','0505','0513')
+huc4_list <- c('1019','1018')
 
 
 
 if(!file.exists('data/in/nhd/simple_lines.gpkg')){
   download_nhdplushr('data/in/nhd',huc4_list, download_files = T)
   
-  d <- get_nhdplushr('data/in/nhd/05',
+  d <- get_nhdplushr('data/in/nhd/10',
                      layers = 'NHDFlowline')$NHDFlowline
   
   #Get rid of small accumulated ares to make downstream calcs faster
@@ -133,7 +135,7 @@ Here we are just downloading the cumulative mining data from the Pericack study
 
 
 #Look for cumulative mining data
-cume_file <- 'data/in/cume.tif'
+cume_file <- 'data/in/fire/cume.zip'
 
 #Check if the file already exists, if not run the commands below. 
 cume_downloaded = !file.exists(cume_file)
@@ -146,126 +148,41 @@ if(cume_downloaded){
   dir.create('data/out')
   
   #Download data locally. Link is from paper
-  download.file('https://ndownloader.figshare.com/files/11446991?private_link=e99954fc2876c6e96a7c',destfile=cume_file,method='libcurl',mode='wb')
+  download.file('https://edcintl.cr.usgs.gov/downloads/sciweb1/shared/MTBS_Fire/data/composite_data/burned_area_extent_shapefile/mtbs_perimeter_data.zip',destfile=cume_file,method='libcurl',mode='wb')
+  
+  unzip(cume_file, exdir = 'data/in/fire')
   
 
 }
 
 
-```
-
-p### Download relevant NHD raster data
-
-For this analysis we will want to do some of our own terrain analysis work, but
-first we need to download the National Elevation Data snapshots from the NHDPlus
-website, since we will be using their flow accumulation data as well.
-All of this data can be found [here](https://www.epa.gov/waterdata/nhdplus-ohio-data-vector-processing-unit-05),
-and our regions are 05a,c,and d. B is outside of our study region. 
-
-```{r}
+cume_fire <- shapefile('data/in/fire/mtbs_perims_DD/mtbs_perims_DD.shp') #%>% 
+  st_transform(2163)
 
 
-dem_download_table <- tibble(type = c(
-                                      'fac','fac','fac',
-                                      'dem','dem','dem'),
-                             name = rep(c('a','c','d'), times = 2),
-                             file = c('https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05a_FdrFac_01.7z','https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05c_FdrFac_01.7z','https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05d_FdrFac_01.7z','https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05a_NEDSnapshot_01.7z','https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05c_NEDSnapshot_01.7z','https://s3.amazonaws.com/edap-nhdplus/NHDPlusV21/Data/NHDPlusMS/NHDPlus05/NHDPlusV21_MS_05_05d_NEDSnapshot_01.7z'),
-                             destfile = paste0('data/in/nhd_dem/',type,'_',name,'.7z'),
-                             destfolder = gsub('\\.7z','',destfile))
-  
 
-dir.create('data/in/nhd_dem')
+cume_fire_1 <- raster::crop(cume_fire, extent(co))
 
-if(!file.exists(dem_download_table$destfile[1])){
-nhd_dem_downloader <- function(type,name,file, destfile, destfolder){
-  download.file(file,
-                destfile = destfile,
-                mode = 'wb')
+# pulling out years so we can add these as our target values when using rasterize
+year <- as.numeric(cume_fire_1$Year)
 
-  #7zip extraction e = extracat -0 = output folder
-  #y = yes to all 7z questions
-  #r = recursive extraction
-  #-spf = put files back in folders they are zipped in
-  system(paste0('7z e ',destfile,' -o',destfolder,' -y -r -spf'))
-  #This works but produces a deeply nested output file. Easily addressed, but
-  #annoying.
-  file.remove(destfile)
-}
+# This is creating a raster to fill with values from above cumulative fires
+ext <-  extent (co)
+xy <- abs(apply(as.matrix(bbox(ext)), 1, diff))
+n <- 100
+r <- raster(ext, ncol=xy[1]*n, nrow=xy[2]*n, crs = projection(co))
 
-#Walk over this data and collect outputs!
+cume_fire_tif <- rasterize(cume_fire_1,r, field = year)
 
-  pwalk(dem_download_table,nhd_dem_downloader)
-}
+writeRaster(cume_fire_tif, "data/in/cume.tif")
 
 
-  
+plot(cume_fire_tif)
+plot(cume_fire_1, add = T)
 
 ```
 
 
-### Merge DEMs from above
-
-Still data acquisition? Questionable, but just merging with very fast terra.
-You'll need lots of memory to do this (I needed 10gb ram)
-```{r}
-
-
-if(!file.exists('data/in/nhd_dem.tif')){
-  #These tables are basically instruction tables
-  merge_table <- dem_download_table %>%
-    mutate(destfolder = gsub('\\.7z','',destfile),
-           full_paths = ifelse(type == 'fac',
-                               paste0(destfolder,
-                                      '/NHDPlusMS/NHDPlus05/NHDPlusFdrFac05',
-                                      name,'/fac/w001001.adf'),
-                              paste0(destfolder,
-                                     '/NHDPlusMS/NHDPlus05/NEDSnapshot/Ned05',
-                                     name,'/elev_cm/w001001.adf'))) %>%
-    dplyr::select(type,full_paths) %>%
-    group_by(type) %>%
-    nest() %>%
-    rename(files = data)
-  
-  crs_rast <- merge_table %>%
-    unnest(files) %>%
-    pull(full_paths) %>%
-    .[1]%>%
-    raster(.)
-  
-  area <- st_read('data/in/study_area/Study-Area.shp') %>%
-    st_transform(.,st_crs(crs_rast))
-  
-  
-  terra_merge <- function(type,files){
-    files = unnest(files, cols = c()) %>%
-      pull(full_paths)
-    container <- list()
-    for(i in 1:length(files)){
-      out <- raster(files[i]) %>%
-        crop(.,area) 
-      
-      if(grepl('elev_cm',files[i])){
-        #convert to meters
-        out <- out/100 
-      }
-      
-      container[[i]] <- out
-        
-    }
-    #Sadly terra had unexpected behavior here so terra::merge is really raster merge
-    merged <- do.call(merge,container)
-    
-    writeRaster(merged,filename =
-                         paste0('data/in/nhd_',type,'.tif'),
-                       overwrite = T)
-  }
-  
-  
-  pwalk(merge_table,terra_merge)
-}
-
-
-```
 
 
 #### Using elevatr
@@ -286,7 +203,7 @@ raw_dem_eval <- !file.exists(raw_dem_file)
 if(raw_dem_eval){
   #Download data from elevatr (mapzen)
   cume_r <- raster('data/in/cume.tif')
-  elev_raw <- get_elev_raster(cume_r,z=11)
+  elev_raw <- get_elev_raster(cume_fire_1,z=11)
   #Save raw file
   writeRaster(elev_raw,raw_dem_file,overwrite=T)
 }
@@ -346,7 +263,7 @@ if(!file.exists('data/out/nhd/burns.gpkg')){
   
   
   #Get our study area and reproject
-  area <- st_read('data/in/study_area/Study-Area.shp') %>%
+  area <- co %>%
     st_transform(., st_crs(km1_lines)) 
   
   #This creates a thin 2000m band around the study area (and outside of the study)
@@ -388,8 +305,8 @@ if(!file.exists('data/out/nhd/burns.gpkg')){
   
   
   within_lines <- km1_lines %>%
-    .[area,]
-  
+    .[area,] 
+ 
   burns <- within_lines %>%
     filter(COMID %in% burn_out_vector)
   
@@ -410,25 +327,26 @@ if(!file.exists('data/out/nhd/burns.gpkg')){
   st_write(burn_simple, 'data/out/nhd/burn_simple.gpkg')
 }
 
-charleston <- us_cities() %>%
-  filter(city == 'Charleston' & state_abbr == 'WV') %>%
+fort_collins <- us_cities() %>%
+  filter(city == 'Fort Collins' & state_abbr == 'CO') %>%
   st_transform(2163) %>%
   st_buffer(50000)
 
 
 ## Visualize simplified lines around charleston
 within_simple <- st_read('data/out/nhd/within_simple.gpkg') %>%
-  .[charleston,]
+  .[fort_collins,]
 
 burn_simple <- st_read('data/out/nhd/burn_simple.gpkg') %>%
-  .[charleston,]
+  .[fort_collins,]
 
   #Get our study area and reproject
-c_area <- st_read('data/in/study_area/Study-Area.shp') %>%
+c_area <- co %>%
   st_transform(., st_crs(within_simple))  
 
-mapview(within_simple, color = 'blue', layer.name = 'Contained river') + 
-  mapview(burn_simple, color = 'red', layer.name = 'Burn out river') + 
+
+mapview(within_simple, color = 'blue', layer.name = 'Contained river') +
+  mapview(burn_simple, color = 'red', layer.name = 'Burn out river')  
   mapview(c_area, col.region = 'gray30', layer.name = 'Study area', homebutton = F)
 ```
 
@@ -454,7 +372,7 @@ study_12s <- huc_12 %>%
   filter(st_within(.,
                    c_area  %>% #In case hucs are on border
                      st_buffer(50),
-                   sparse = F)) %>%
+                   sparse = F)) #%>%
   ## In the southwestern and ester most corner of the region, there are three huc12s
 # That are discontinuous with the rest of the study region. We will explicitly 
 #remove those here. 
@@ -472,7 +390,7 @@ study_12s <- huc_12 %>%
 visual_12s <- study_12s %>%
   st_simplify(.,dTolerance = 2000)
 
-mapview(c_area, layer.name = 'Original Study Area') + 
+mapview(c_area, layer.name = 'Original Study Area') +
 mapview(visual_12s, col.regions = 'red',layer.name = 'Whole HUC 12s') 
 
 #Save the new study area
@@ -490,6 +408,10 @@ if(!file.exists('data/out/whole_area.gpkg')){
 
 ### Trim all analysis rasters to new study area extent
 
+```{r}
+whitebox::wbt_flow_accumulation_full_workflow(proj_dem_file, "data/in/flow_dep_dem.tif", "data/in/flow_pnt.tif", "data/in/flow_accm.tif")
+```
+
 We have a series of raster's that we downloaded and merged upstream (flow accumulation
 elevation, cumulative mining). These all need to be trimmed to our new study area.
 We will use 
@@ -501,7 +423,7 @@ We will use
 
 if(!file.exists('data/out/elev_study.tif')){
   #Transform everything to the elev.tif projection (this takes a while)
-  elev <- rast('data/in/nhd_dem.tif') 
+  elev <- rast('data/in/elev_raw.tif') 
   
   cume <- rast('data/in/cume.tif') %>%
     project(.,elev, method = 'near', mask = T)
@@ -512,7 +434,7 @@ if(!file.exists('data/out/elev_study.tif')){
   #Change all within bound NAs to 0s (mass flux fix?)
   cume[is.na(cume)] <- 0
   
-  fac <- rast('data/in/nhd_fac.tif')
+  fac <- rast('data/in/flow_accm.tif')
   
   #Trim to new huc5 study area
   new_area <- vect('data/out/whole_area.gpkg') %>%
@@ -538,7 +460,10 @@ if(!file.exists('data/out/elev_study.tif')){
 
 
 
-### First Mining Year for Boone County
+### First Mining Year for Larimer County
+
+There migh need to be a section of code to show how to merge two counties
+
 
 
 ```{r first,fig.width= 7,fig.height= 7,fig.cap = 'First year of mountaintop mining in Boone County West Virginia', cache = F}
@@ -548,16 +473,16 @@ elev <- rast('data/out/elev_study.tif')
 cume <- rast('data/out/cume_study.tif')
 
 
-boone <- us_counties(states='West Virginia') %>%
-  filter(name == 'Boone') %>%
+larimer <- us_counties(states='Colorado') %>%
+  filter(name == 'Larimer') %>%
   #Match projections to mining data
   st_transform(crs(cume))
 
-#Crop to boone
-cume_boone <- crop(cume,boone) 
-cume_boone[cume_boone == 0] <- NA
+#Crop to larimer
+cume_larimer <- crop(cume,larimer) 
+cume_larimer[cume_larimer == 0] <- NA
 
-elev_boone <- crop(elev,boone)
+elev_larimer <- crop(elev,larimer)
 
 
 #Terra doesn't work with tmap (yet presumably)
@@ -566,32 +491,31 @@ elev_boone <- crop(elev,boone)
 
 
 #OMG HCL.colors is nice
-plot(cume_boone,col=hcl.colors(30,'viridis'),frame=F,axes=F)
-plot(elev_boone,col=hcl.colors(20,'Grays'),add=T,frame=F,axes=F, legend = F)
-plot(cume_boone,col=hcl.colors(30,'viridis'),add=T, legend = F)
-
+plot(cume_larimer,col= hcl.colors(30,'viridis'),frame=F,axes=F)
+plot(elev_larimer,col= hcl.colors(20,'Grays'),add=T,frame=F,axes=F, legend = F)
+plot(cume_larimer,col= hcl.colors(30,'viridis'),add=T, legend = F)
 
 
 
 
 ```
 
-### Cumulative mining Boone County 1990
+### Cumulative fire Larimer County 
 
-Just an example of how we are creating these rasters and what they will look 
+Just an example of how we are creating these rasters asnd what they will look 
 like. 
 
 ```{r cume,fig.width = 7,fig.height = 7,fig.caption='Cumulative mining as of 1990'}
 #Set all values above a year value to NA and all values before or equal to 1990 to 1
 
-cut_year <- 2015
-rcl <- matrix(c(cut_year + 1,2016,NA,
+cut_year <- 2018
+rcl <- matrix(c(cut_year + 1,2019,NA,
               1984,cut_year,cut_year),nrow=2,ncol=3,byrow=T)
 
 
-cume_cut <- classify(cume_boone,rcl,lowest = T)
+cume_cut <- classify(cume_larimer,rcl,lowest = T)
 
-plot(elev_boone,col=hcl.colors(20,'Grays'),frame=F,axes=F)
+plot(elev_larimer,col=hcl.colors(20,'Grays'),frame=F,axes=F)
 plot(cume_cut,col='red',add=T,useRaster=T, legend = F)
 
 
@@ -603,14 +527,14 @@ plot(cume_cut,col='red',add=T,useRaster=T, legend = F)
 ```{r boone gif, fig.height = 7,fig.width = 7,  fig.caption = 'Cumulative annual mining and last year mined',interval=0.2, animation.hook='gifski'}
 
 
-cut_years = 1984:2015
+cut_years = 1984:2018
 
 
 
 
 for(i in cut_years){
   
-  rcl <- matrix(c(i+1,2016,NA,
+  rcl <- matrix(c(i+1,2019,NA,
             1984,i,1),nrow=2,ncol=3,byrow=T)
   
   cume_cuts <- terra::classify(cume_boone,rcl, lowest = T)
@@ -629,7 +553,7 @@ terra::plot(elev_boone,col=hcl.colors(20,'Grays'),
 
 
 
-### Filtering and outputting cumulative mining rasters 1984-2015
+### Filtering and outputting cumulative fire rasters 1984-2018
 
 ```{r}
 
@@ -638,7 +562,7 @@ if(!dir.exists('data/out/annual_cumes')){
 }
 
 #Years for cume data
-years <- 1984:2015
+years <- 1984:2018
 
 year_files <- paste0('data/out/annual_cumes/',years,'.tif')
 
@@ -665,7 +589,7 @@ mine_cumer <- function(year){
 #THis is why all the TERRA stuff is worth it about 100X faster than
 #raster and 20X faster than using futures and furrr mapping
 if(cumer_run){
-map(2015,mine_cumer)
+map(2018,mine_cumer)
 }
 ```
 
@@ -721,7 +645,7 @@ if(!dir.exists('data/out/wbt_outputs/annual_accumed')){
   dir.create('data/out/wbt_outputs/annual_accumed', recursive = T)
 }
 
-writeRaster(elev_boone,'data/out/elev_boone.tif')
+writeRaster(elev_larimer,'data/out/elev_larimer.tif')
 
 #Dist needs tuning. Looked wonky until set at 20000
 wbt_breach_depressions_least_cost('data/out/elev_study.tif',
@@ -764,9 +688,9 @@ if(!all(file.exists(accumulated))){
 
 
 ```{r}
-boone_check <- raster('data/out/wbt_outputs/annual_accumed/2015.tif') 
+larimer_check <- raster('data/out/wbt_outputs/annual_accumed/2018.tif') 
 
-boone_l <- log10(boone_check)
+larimer_l <- log10(larimer_check)
 
 
 ```
