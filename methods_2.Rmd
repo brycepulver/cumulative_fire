@@ -11,12 +11,12 @@ Pericack et al., paper (2018) labeled `First Mining Year (GeoTIFF)` in the
 figshare data repository. The second dataset we will create here using `whitebox` and elevation data from the region, but fist we need to download the data. 
 
 ```{r setup, include=FALSE}
-library(sf) #Amazingly simple tidy GIS R package
-library(mapview) #Interactive mapping of sf objects
-library(tidyverse) #Good 'ol tidyverse (dplyr, readr, more)
-library(elevatr) #R access to mapzen (dynamic downloading of DEMs)
+library(sf) # Amazingly simple tidy GIS R package
+library(mapview) # Interactive mapping of sf objects
+library(tidyverse) # Good 'ol tidyverse (dplyr, readr, more)
+library(elevatr) # R access to mapzen (dynamic downloading of DEMs)
 library(raster) # Name says it all, rasters in R
-library(whitebox) #amazing terrain analysis package
+library(whitebox) # amazing terrain analysis package
 library(stars) # (spatiotemporal objects)
 library(USAboundaries)
 library(tmap) 
@@ -127,9 +127,9 @@ if(!file.exists('data/in/nhd/simple_lines.gpkg')){
 
 
 
-### Cumulative mining from Pericack et al., 2018
+### Cumulative fire from MTBS 2020
 
-Here we are just downloading the cumulative mining data from the Pericack study
+Here we are just downloading the cumulative burn area from MTBS
 
 ```{r download cume}
 
@@ -157,14 +157,14 @@ if(cume_downloaded){
 
 
 cume_fire <- shapefile('data/in/fire/mtbs_perims_DD/mtbs_perims_DD.shp') #%>% 
-  st_transform(2163)
+  projectRaster(crs = crs(co))
 
 
 
 cume_fire_1 <- raster::crop(cume_fire, extent(co))
 
 # pulling out years so we can add these as our target values when using rasterize
-year <- as.numeric(cume_fire_1$Year)
+year <- as.numeric(cume_fire$Year)
 
 # This is creating a raster to fill with values from above cumulative fires
 ext <-  extent (co)
@@ -172,9 +172,9 @@ xy <- abs(apply(as.matrix(bbox(ext)), 1, diff))
 n <- 100
 r <- raster(ext, ncol=xy[1]*n, nrow=xy[2]*n, crs = projection(co))
 
-cume_fire_tif <- rasterize(cume_fire_1,r, field = year)
+cume_fire_tif <- rasterize(cume_fire,r, field = year)
 
-writeRaster(cume_fire_tif, "data/in/cume.tif")
+writeRaster(cume_fire_tif, "data/in/cume.tif", overwrite = T)
 
 
 plot(cume_fire_tif)
@@ -203,7 +203,7 @@ raw_dem_eval <- !file.exists(raw_dem_file)
 if(raw_dem_eval){
   #Download data from elevatr (mapzen)
   cume_r <- raster('data/in/cume.tif')
-  elev_raw <- get_elev_raster(cume_fire_1,z=11)
+  elev_raw <- get_elev_raster(cume_fire_tif,z=8)
   #Save raw file
   writeRaster(elev_raw,raw_dem_file,overwrite=T)
 }
@@ -333,7 +333,7 @@ fort_collins <- us_cities() %>%
   st_buffer(50000)
 
 
-## Visualize simplified lines around charleston
+## Visualize simplified lines around fort collins
 within_simple <- st_read('data/out/nhd/within_simple.gpkg') %>%
   .[fort_collins,]
 
@@ -346,7 +346,7 @@ c_area <- co %>%
 
 
 mapview(within_simple, color = 'blue', layer.name = 'Contained river') +
-  mapview(burn_simple, color = 'red', layer.name = 'Burn out river')  
+  mapview(burn_simple, color = 'red', layer.name = 'Burn out river') + 
   mapview(c_area, col.region = 'gray30', layer.name = 'Study area', homebutton = F)
 ```
 
@@ -365,7 +365,8 @@ huc_12 <- st_read('data/in/wbd/Shape/WBDHU12.shp') %>%
   st_transform(2163)
 
 
-huc4 <- st_read('data/in/wbd/Shape/WBDHU4.shp')
+huc4 <- st_read('data/in/wbd/Shape/WBDHU4.shp') %>% 
+  st_transform(4269)
 
 
 study_12s <- huc_12 %>%
@@ -413,7 +414,7 @@ whitebox::wbt_flow_accumulation_full_workflow(proj_dem_file, "data/in/flow_dep_d
 ```
 
 We have a series of raster's that we downloaded and merged upstream (flow accumulation
-elevation, cumulative mining). These all need to be trimmed to our new study area.
+elevation, cumulative fire). These all need to be trimmed to our new study area.
 We will use 
 
 ```{r}
@@ -460,9 +461,9 @@ if(!file.exists('data/out/elev_study.tif')){
 
 
 
-### First Mining Year for Larimer County
+### First Fire Year for Larimer County
 
-There migh need to be a section of code to show how to merge two counties
+There might need to be a section of code to show how to merge two counties
 
 
 
@@ -471,6 +472,7 @@ There migh need to be a section of code to show how to merge two counties
 elev <- rast('data/out/elev_study.tif')
 
 cume <- rast('data/out/cume_study.tif')
+cume[cume == 0] <- NA
 
 
 larimer <- us_counties(states='Colorado') %>%
@@ -491,9 +493,9 @@ elev_larimer <- crop(elev,larimer)
 
 
 #OMG HCL.colors is nice
-plot(cume_larimer,col= hcl.colors(30,'viridis'),frame=F,axes=F)
-plot(elev_larimer,col= hcl.colors(20,'Grays'),add=T,frame=F,axes=F, legend = F)
-plot(cume_larimer,col= hcl.colors(30,'viridis'),add=T, legend = F)
+plot(cume,col= hcl.colors(30,'viridis'),frame=F,axes=F)
+plot(elev,col= hcl.colors(20,'Grays'), add = T,frame=F,axes=F, legend = F)
+plot(cume,col= hcl.colors(30,'viridis'),add=T, legend = F)
 
 
 
@@ -502,7 +504,7 @@ plot(cume_larimer,col= hcl.colors(30,'viridis'),add=T, legend = F)
 
 ### Cumulative fire Larimer County 
 
-Just an example of how we are creating these rasters asnd what they will look 
+Just an example of how we are creating these rasters and what they will look 
 like. 
 
 ```{r cume,fig.width = 7,fig.height = 7,fig.caption='Cumulative mining as of 1990'}
@@ -518,13 +520,12 @@ cume_cut <- classify(cume_larimer,rcl,lowest = T)
 plot(elev_larimer,col=hcl.colors(20,'Grays'),frame=F,axes=F)
 plot(cume_cut,col='red',add=T,useRaster=T, legend = F)
 
-
 ```
 
 ### Animated loop showing how this looks for all years
 
 
-```{r boone gif, fig.height = 7,fig.width = 7,  fig.caption = 'Cumulative annual mining and last year mined',interval=0.2, animation.hook='gifski'}
+```{r larimer gif, fig.height = 7,fig.width = 7,  fig.caption = 'Cumulative annual mining and last year mined',interval=0.2, animation.hook='gifski'}
 
 
 cut_years = 1984:2018
@@ -534,19 +535,21 @@ cut_years = 1984:2018
 
 for(i in cut_years){
   
-  rcl <- matrix(c(i+1,2019,NA,
+  rcl <- matrix(c(i+1,2018,NA,
             1984,i,1),nrow=2,ncol=3,byrow=T)
   
-  cume_cuts <- terra::classify(cume_boone,rcl, lowest = T)
+  cume_cuts <- terra::classify(cume_larimer,rcl, lowest = T)
   
   
   
-terra::plot(elev_boone,col=hcl.colors(20,'Grays'),
-       add=F,frame=F,axes=F,main=paste('Cumulative Mining Growth',i))
+terra::plot(elev_larimer,col=hcl.colors(20,'Grays'),
+       add=F,frame=F,axes=F,main=paste('Cumulative Fire Area',i))
   terra::plot(cume_cuts,col='red',add=T,leg.shrink=.3,
               legend = F)
 
 }
+
+
 
 
 ```
@@ -574,7 +577,7 @@ cumer_run <- !all(file.exists(year_files))
 
 mine_cumer <- function(year){
   #Reclassify matrix
-  rcl <- matrix(c(year+1,Inf,0,
+  rcl <- matrix(c(year+1,2019,0,
               1984,year+1,1),nrow=2,ncol=3,byrow=T)
   
   
@@ -589,7 +592,7 @@ mine_cumer <- function(year){
 #THis is why all the TERRA stuff is worth it about 100X faster than
 #raster and 20X faster than using futures and furrr mapping
 if(cumer_run){
-map(2018,mine_cumer)
+map(1984:2018,mine_cumer)
 }
 ```
 
@@ -647,12 +650,25 @@ if(!dir.exists('data/out/wbt_outputs/annual_accumed')){
 
 writeRaster(elev_larimer,'data/out/elev_larimer.tif')
 
+elev_study <- raster('data/out/elev_study.tif')
+
+
+
+  plot(elev_study,col= hcl.colors(20,'Grays'),frame = F)
+
+
+
 #Dist needs tuning. Looked wonky until set at 20000
 wbt_breach_depressions_least_cost('data/out/elev_study.tif',
                              'data/out/wbt_outputs/breached.tif',
-                             dist = 20000,
+                             dist = 16000,
                              min_dist = T,
-                             fill = T)
+                             fill = T,
+                             verbose_mode = T)
+
+breached_tif <- raster('data/out/wbt_outputs/breached.tif') 
+
+plot(breached_tif,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
 
 
 ```
@@ -667,7 +683,8 @@ dem <- 'data/out/wbt_outputs/breached.tif'
 absorption <- 'data/out/zero.tif'
 efficiency <- 'data/out/one.tif'
 
-
+breach <- 
+viewRGB()
 
 accumulated  <- gsub('annual_cumes','wbt_outputs/annual_accumed', loading)
 
@@ -688,9 +705,34 @@ if(!all(file.exists(accumulated))){
 
 
 ```{r}
-larimer_check <- raster('data/out/wbt_outputs/annual_accumed/2018.tif') 
+larimer_check_2011 <- raster('data/out/wbt_outputs/annual_accumed/2011.tif') 
 
-larimer_l <- log10(larimer_check)
+
+larimer_1 <- log10(larimer_check_2011)
+
+larimer_crop_1 <- crop(larimer_1, larimer)
+
+plot(breached_tif,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
+plot(larimer_l,col= hcl.colors(30,'Spectral'), frame = F, add = T)
+
+
+larimer_check_2018 <- raster('data/out/wbt_outputs/annual_accumed/2018.tif') 
+
+larimer_2 <- log10(larimer_check_2018)
+
+larimer_crop_2 <- crop(larimer_2, larimer)
+
+plot(breached_tif,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
+plot(larimer_2,col= hcl.colors(30,'Spectral'), frame = F, add = T)
+
+breached_crop <- crop(breached_tif,larimer)
+
+plot(breached_crop,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
+plot(larimer_l,col= hcl.colors(30,'Spectral'), frame = F, add = T)
+
+plot(breached_crop,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
+plot(larimer_2,col= hcl.colors(30,'Spectral'), frame = F, add = T)
+plot(fort_collins)
 
 
 ```
