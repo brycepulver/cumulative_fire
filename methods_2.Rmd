@@ -42,22 +42,30 @@ par(mar = c(0,0,0,2))
 
 ### Study Area
 
-Let's grab a shapefile of the study area from Pericack et al., 2018. This will
-be a zip of a shapefile, that we will need to unzip. 
 
 ```{r}
 
-area_file <- 'data/in/study_area.zip'
-
-if(!file.exists(area_file)){
-download.file('https://ndownloader.figshare.com/articles/6253901?private_link=7a36745020ee5a517dcb',
-              destfile=area_file,method='libcurl',mode='wb')
-
-unzip(area_file, exdir = 'data/in/study_area')
-}
+# area_file <- 'data/in/study_area.zip'
+# 
+# if(!file.exists(area_file)){
+# download.file('https://ndownloader.figshare.com/articles/6253901?private_link=7a36745020ee5a517dcb',
+#               destfile=area_file,method='libcurl',mode='wb')
+# 
+# unzip(area_file, exdir = 'data/in/study_area')
+# }
 
 co <- us_boundaries(type = "state", states = "Colorado")
 plot(st_geometry(co))
+
+poudre_dest <- 'data/in/layers.zip'
+download.file('https://www.dropbox.com/s/jhyln2jetpm80ej/layers.zip', destfile = poudre_dest,method='libcurl',mode='wb')
+
+unzip(poudre_dest, exdir = 'data/in/wbd')
+
+poudre_wb <- st_read("data/in/wbd/layers/globalwatershed.shp") %>% 
+  st_transform(., st_crs(co))
+
+plot(st_geometry(poudre_wb), add = T)
 ```
 
 ### Watershed boundaries
@@ -134,7 +142,7 @@ Here we are just downloading the cumulative burn area from MTBS
 ```{r download cume}
 
 
-#Look for cumulative mining data
+#Look for cumulative fire data
 cume_file <- 'data/in/fire/cume.zip'
 
 #Check if the file already exists, if not run the commands below. 
@@ -147,7 +155,7 @@ if(cume_downloaded){
   dir.create('data/in')
   dir.create('data/out')
   
-  #Download data locally. Link is from paper
+  #Download data locally. Link is from MTBS
   download.file('https://edcintl.cr.usgs.gov/downloads/sciweb1/shared/MTBS_Fire/data/composite_data/burned_area_extent_shapefile/mtbs_perimeter_data.zip',destfile=cume_file,method='libcurl',mode='wb')
   
   unzip(cume_file, exdir = 'data/in/fire')
@@ -169,7 +177,7 @@ year <- as.numeric(cume_fire$Year)
 # This is creating a raster to fill with values from above cumulative fires
 ext <-  extent (co)
 xy <- abs(apply(as.matrix(bbox(ext)), 1, diff))
-n <- 100
+n <- 1000
 r <- raster(ext, ncol=xy[1]*n, nrow=xy[2]*n, crs = projection(co))
 
 cume_fire_tif <- rasterize(cume_fire,r, field = year)
@@ -200,19 +208,53 @@ raw_dem_file <- 'data/in/elev_raw.tif'
 raw_dem_eval <- !file.exists(raw_dem_file)
 
 
+
 if(raw_dem_eval){
   #Download data from elevatr (mapzen)
   cume_r <- raster('data/in/cume.tif')
-  elev_raw <- get_elev_raster(cume_fire_tif,z=8)
+  elev_raw <- get_elev_raster(poudre_wb,z=12)
   #Save raw file
   writeRaster(elev_raw,raw_dem_file,overwrite=T)
 }
+
+elev_raw <- raster('data/in/elev_raw.tif')
+plot(elev_raw,col= hcl.colors(4000,'Grays'),frame=F,axes=F)
+plot(st_geometry(poudre_wb), add = T)
+```
+
+#### Using MERIT Hydro DEM
+
+```{r}
+
+
+hydro_dem <- 'data/in/hydro_dem.tar'
+
+  download.file('http://hydrography:rivernetwork@hydro.iis.u-tokyo.ac.jp/~yamadai/MERIT_Hydro/distribute/v1.0/elv_n30w120.tar',destfile=hydro_dem,method='libcurl',mode='wb')
+  
+  untar(hydro_dem, exdir = 'data/in/hydro_dem')
+  
+hydro_rast_01 <- rast('data/in/hydro_dem/elv_n30w120/n40w110_elv.tif')
+hydro_rast_02 <- rast('data/in/hydro_dem/elv_n30w120/n40w105_elv.tif')
+hydro_raw <- merge(hydro_rast_01, hydro_rast_02)
+cume <- rast('data/in/cume.tif')
+hydro_elev <- projectRaster(hydro_raw, crs = crs(poudre_wb))
+
+hydro_crop <- trim(hydro_elev, poudre_wb)
+
+proj_dem_file <- 'data/out/elev.tif'
+
+terra::writeRaster(hydro_crop,proj_dem_file,overwrite=T)
+
+
+plot(hydro_crop,col= hcl.colors(4000,'Grays'),frame=F,axes=F)
+plot(st_geometry(poudre_wb), add = T)
+
 ```
 
 
-#### Reproject elevation data into same projection as cumulative mining tif. 
+#### Reproject elevation data into same projection as cumulative fire tif. 
 
-The elevatr comes down in a different projection than the cumulative mining 
+The elevatr comes down in a different projection than the cumulative fire 
 dataset, so we need to reproject it so that the cells match exactly in
 resolution and location
 
@@ -239,7 +281,7 @@ cumulative mining layer so that we produce 31 rasters that have cumulative minin
 coverage up to that year. So we will make a tif called "1984.tif" and it will 
 only contain mining up to 1984, and then 1985, '86 and so on. To demonstrate
 this process we'll look at a county where there has been a lot of mining so we 
-can see how cumulative mining changes over time, Boone County, WV.
+can see how cumulative mining changes over time, North Eastern, CO.
 
 ### Picking "whole" flowlines for analysis
 
@@ -263,7 +305,7 @@ if(!file.exists('data/out/nhd/burns.gpkg')){
   
   
   #Get our study area and reproject
-  area <- co %>%
+  area <- poudre_wb %>%
     st_transform(., st_crs(km1_lines)) 
   
   #This creates a thin 2000m band around the study area (and outside of the study)
@@ -321,27 +363,27 @@ if(!file.exists('data/out/nhd/burns.gpkg')){
   #For burning them into our analysis we will want to use
   #the full lines from get_nhdplus. 
   write.csv(burn_out_vector, 'data/out/burn_comids.csv')
-  st_write(within_lines, 'data/out/nhd/within_lines.gpkg')
-  st_write(burns, 'data/out/nhd/burns.gpkg') 
-  st_write(within_simple, 'data/out/nhd/within_simple.gpkg')
-  st_write(burn_simple, 'data/out/nhd/burn_simple.gpkg')
+  st_write(within_lines, 'data/out/nhd/within_lines.gpkg', delete_dsn = T)
+  st_write(burns, 'data/out/nhd/burns.gpkg', delete_dsn = T) 
+  st_write(within_simple, 'data/out/nhd/within_simple.gpkg', delete_dsn = T)
+  st_write(burn_simple, 'data/out/nhd/burn_simple.gpkg', delete_dsn = T)
 }
 
 fort_collins <- us_cities() %>%
   filter(city == 'Fort Collins' & state_abbr == 'CO') %>%
   st_transform(2163) %>%
-  st_buffer(50000)
+  st_buffer(70000)
 
 
 ## Visualize simplified lines around fort collins
-within_simple <- st_read('data/out/nhd/within_simple.gpkg') %>%
+within_simple <- st_read('data/out/nhd/within_lines.shp') %>%
   .[fort_collins,]
 
 burn_simple <- st_read('data/out/nhd/burn_simple.gpkg') %>%
   .[fort_collins,]
 
   #Get our study area and reproject
-c_area <- co %>%
+c_area <- poudre_wb %>%
   st_transform(., st_crs(within_simple))  
 
 
@@ -372,7 +414,7 @@ huc4 <- st_read('data/in/wbd/Shape/WBDHU4.shp') %>%
 study_12s <- huc_12 %>%
   filter(st_within(.,
                    c_area  %>% #In case hucs are on border
-                     st_buffer(50),
+                     st_buffer(5000),
                    sparse = F)) #%>%
   ## In the southwestern and ester most corner of the region, there are three huc12s
 # That are discontinuous with the rest of the study region. We will explicitly 
@@ -404,13 +446,13 @@ if(!file.exists('data/out/whole_area.gpkg')){
   st_write(new_area,'data/out/whole_area.gpkg',delete_layer = T)
 }
 
-
 ```
 
 ### Trim all analysis rasters to new study area extent
 
 ```{r}
 whitebox::wbt_flow_accumulation_full_workflow(proj_dem_file, "data/in/flow_dep_dem.tif", "data/in/flow_pnt.tif", "data/in/flow_accm.tif")
+
 ```
 
 We have a series of raster's that we downloaded and merged upstream (flow accumulation
@@ -441,15 +483,24 @@ if(!file.exists('data/out/elev_study.tif')){
   new_area <- vect('data/out/whole_area.gpkg') %>%
     project(.,crs(elev))
   
+  
   #Crop and mask those rasters
   elev_study <- crop(elev, new_area) %>%
     mask(.,new_area)
+  
+  
   
   cume_study <- crop(cume, new_area) %>%
     mask(.,new_area)
   
   fac_study <- crop(fac, new_area) %>%
     mask(., new_area)
+  
+  plot(elev,col= hcl.colors(4000,'Grays'),frame=F,axes=F, legend = F)
+plot(new_area, add = T)
+
+  plot(elev_study,col= hcl.colors(4000,'Grays'),frame=F,axes=F, legend = F)
+plot(new_area, add = T)
   
   #Save the data
   writeRaster(elev_study, 'data/out/elev_study.tif', overwrite = T)
@@ -470,6 +521,7 @@ There might need to be a section of code to show how to merge two counties
 ```{r first,fig.width= 7,fig.height= 7,fig.cap = 'First year of mountaintop mining in Boone County West Virginia', cache = F}
 
 elev <- rast('data/out/elev_study.tif')
+
 
 cume <- rast('data/out/cume_study.tif')
 cume[cume == 0] <- NA
@@ -493,8 +545,8 @@ elev_larimer <- crop(elev,larimer)
 
 
 #OMG HCL.colors is nice
-plot(cume,col= hcl.colors(30,'viridis'),frame=F,axes=F)
-plot(elev,col= hcl.colors(20,'Grays'), add = T,frame=F,axes=F, legend = F)
+
+plot(elev,col= hcl.colors(4000,'Grays'),frame=F,axes=F, legend = F)
 plot(cume,col= hcl.colors(30,'viridis'),add=T, legend = F)
 
 
@@ -629,8 +681,8 @@ one <- rast('data/out/cume_study.tif') %>%
   setValues(1) %>%
   mask(.,area)
 
-writeRaster(zero,'data/out/zero.tif')
-writeRaster(one,'data/out/one.tif')
+writeRaster(zero,'data/out/zero.tif', overwrite = T)
+writeRaster(one,'data/out/one.tif', overwrite = T)
 
 ```
 
@@ -654,21 +706,43 @@ elev_study <- raster('data/out/elev_study.tif')
 
 
 
-  plot(elev_study,col= hcl.colors(20,'Grays'),frame = F)
+  plot(elev_study,col= hcl.colors(300,'Grays'),frame = F)
 
 
 
 #Dist needs tuning. Looked wonky until set at 20000
+wbt_fill_depressions('data/out/elev_study.tif',
+                             'data/out/wbt_outputs/filled.tif',
+                     flat_increment = 0.1,
+                     verbose_mode = T)
+
+wbt_fill_burn('data/out/elev_study.tif',
+              'data/out/nhd/within_lines.shp',
+              'data/out/wbt_outputs/fill_stream.tif',
+              verbose_mode = T)
+
+
+fill_tif <- raster('data/out/wbt_outputs/filled.tif') 
+plot(fill_tif,col= hcl.colors(4000,'Grays'),frame=F,axes=F)
+plot(st_geometry(within_simple), add = T)
+
+wbt_fill_missing_data('data/out/elev_study.tif',
+                      'data/out/wbt_outputs/missing_elev.tif')
+
+
+# This is the winner of the analysis so far  
 wbt_breach_depressions_least_cost('data/out/elev_study.tif',
                              'data/out/wbt_outputs/breached.tif',
-                             dist = 16000,
+                             dist = 13000,
+                             
                              min_dist = T,
                              fill = T,
                              verbose_mode = T)
 
+
 breached_tif <- raster('data/out/wbt_outputs/breached.tif') 
 
-plot(breached_tif,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
+plot(breached_tif,col= hcl.colors(4000,'Grays'),frame=F,axes=F, legend = F)
 
 
 ```
@@ -679,19 +753,33 @@ plot(breached_tif,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
 
 
 loading <- list.files('data/out/annual_cumes',full.names = T)
-dem <- 'data/out/wbt_outputs/breached.tif'
+dem <- 'data/out/wbt_outputs/filled.tif'
 absorption <- 'data/out/zero.tif'
 efficiency <- 'data/out/one.tif'
+years <- 1984:2018
 
-breach <- 
-viewRGB()
 
 accumulated  <- gsub('annual_cumes','wbt_outputs/annual_accumed', loading)
+
+#Getting flow pointer and accumulation
+
+wbt_d8_pointer('data/out/wbt_outputs/breached.tif', 'data/out/d8_pointer.tif',
+               verbose_mode = T)
+
+wbt_d8_flow_accumulation('data/out/wbt_outputs/breached.tif', 'data/out/d8_flow.tif',
+                         verbose_mode = T, log = T)
+
+
+d8_flow <- raster('data/out/d8_flow.tif')
+d8_pnt <- raster('data/out/d8_pointer.tif')
+
+plot(d8_flow,col= hcl.colors(3000,'Grays'), frame = F)
+plot(d8_pnt,col= hcl.colors(360,'Grays'), frame = F)
 
 #Loop over each year
 if(!all(file.exists(accumulated))){
   for(i in 1:length(years)){
-    wbt_d8_mass_flux(dem = dem,
+    wbt_d_inf_mass_flux(dem = dem,
                      loading = loading[i],
                      efficiency = efficiency,
                      absorption = absorption,
@@ -705,15 +793,17 @@ if(!all(file.exists(accumulated))){
 
 
 ```{r}
-larimer_check_2011 <- raster('data/out/wbt_outputs/annual_accumed/2011.tif') 
+larimer_check_2011 <- raster('data/out/wbt_outputs/annual_accumed/2011.tif')
+
+d8_flow <- raster('data/out/d8_flow.tif')
 
 
 larimer_1 <- log10(larimer_check_2011)
 
 larimer_crop_1 <- crop(larimer_1, larimer)
 
-plot(breached_tif,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
-plot(larimer_l,col= hcl.colors(30,'Spectral'), frame = F, add = T)
+plot(breached_tif,col= hcl.colors(400,'Grays'),frame=F,axes=F, legend = F)
+plot(larimer_1,col= hcl.colors(300,'Spectral'), frame = F, add = T)
 
 
 larimer_check_2018 <- raster('data/out/wbt_outputs/annual_accumed/2018.tif') 
@@ -722,17 +812,21 @@ larimer_2 <- log10(larimer_check_2018)
 
 larimer_crop_2 <- crop(larimer_2, larimer)
 
-plot(breached_tif,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
-plot(larimer_2,col= hcl.colors(30,'Spectral'), frame = F, add = T)
+plot(breached_tif,col= hcl.colors(400,'Grays'),frame=F,axes=F, legend = F)
+plot(d8_flow,col= hcl.colors(3000,'Grays'), frame = F)
+plot(st_geometry(poudre_wb), add = T)
+plot(larimer_2,col= hcl.colors(300,'Spectral'), frame = F, add = T)
 
 breached_crop <- crop(breached_tif,larimer)
 
-plot(breached_crop,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
-plot(larimer_l,col= hcl.colors(30,'Spectral'), frame = F, add = T)
+plot(breached_crop,col= hcl.colors(420,'Grays'),frame=F,axes=F, legend = F)
+plot(larimer_1,col= hcl.colors(300,'Spectral'), frame = F, add = T)
 
-plot(breached_crop,col= hcl.colors(20,'Grays'),frame=F,axes=F, legend = F)
-plot(larimer_2,col= hcl.colors(30,'Spectral'), frame = F, add = T)
-plot(fort_collins)
+plot(breached_crop,col= hcl.colors(420,'Grays'),frame=F,axes=F, legend = F)
+plot(larimer_2,col= hcl.colors(300,'Spectral'), frame = F, add = T)
+
+plot(st_geometry(co))
+plot(fort_collins, add = T, col = 'blue')
 
 
 ```
